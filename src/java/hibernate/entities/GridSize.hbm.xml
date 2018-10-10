@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10 oct. 2018 14:43:49 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.entities.GridSize" table="grid_size" catalog="flyinpizzas_mdabase" optimistic-lock="version">
+        <id name="gridSizeId" type="java.lang.Integer">
+            <column name="grid_size_id" />
+            <generator class="identity" />
+        </id>
+        <property name="gridSizeName" type="string">
+            <column name="grid_size_name" length="20" not-null="true" />
+        </property>
+        <property name="gs01" type="string">
+            <column name="GS01" length="6" not-null="true" />
+        </property>
+        <property name="gs02" type="string">
+            <column name="GS02" length="6" not-null="true" />
+        </property>
+        <property name="gs03" type="string">
+            <column name="GS03" length="6" not-null="true" />
+        </property>
+        <property name="gs04" type="string">
+            <column name="GS04" length="6" not-null="true" />
+        </property>
+        <property name="gs05" type="string">
+            <column name="GS05" length="6" not-null="true" />
+        </property>
+        <property name="gs06" type="string">
+            <column name="GS06" length="6" not-null="true" />
+        </property>
+        <property name="gs07" type="string">
+            <column name="GS07" length="6" not-null="true" />
+        </property>
+        <property name="gs08" type="string">
+            <column name="GS08" length="6" not-null="true" />
+        </property>
+        <property name="gs09" type="string">
+            <column name="GS09" length="6" not-null="true" />
+        </property>
+        <property name="gs10" type="string">
+            <column name="GS10" length="6" not-null="true" />
+        </property>
+        <property name="gs11" type="string">
+            <column name="GS11" length="6" not-null="true" />
+        </property>
+        <property name="gs12" type="string">
+            <column name="GS12" length="6" not-null="true" />
+        </property>
+        <property name="gs13" type="string">
+            <column name="GS13" length="6" not-null="true" />
+        </property>
+        <property name="gs14" type="string">
+            <column name="GS14" length="6" not-null="true" />
+        </property>
+        <property name="gs15" type="string">
+            <column name="GS15" length="6" not-null="true" />
+        </property>
+        <property name="gs16" type="string">
+            <column name="GS16" length="6" not-null="true" />
+        </property>
+        <property name="gs17" type="string">
+            <column name="GS17" length="6" not-null="true" />
+        </property>
+        <property name="gs18" type="string">
+            <column name="GS18" length="6" not-null="true" />
+        </property>
+        <property name="gs19" type="string">
+            <column name="GS19" length="6" not-null="true" />
+        </property>
+        <property name="gs20" type="string">
+            <column name="GS20" length="6" not-null="true" />
+        </property>
+        <set name="modelses" table="models" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="model_grid_size" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.entities.Models" />
+        </set>
+    </class>
+</hibernate-mapping>

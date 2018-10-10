@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10 oct. 2018 14:43:49 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.entities.Articles" table="articles" catalog="flyinpizzas_mdabase" optimistic-lock="version">
+        <id name="articleId" type="java.lang.Integer">
+            <column name="article_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="colors" class="hibernate.entities.Colors" fetch="select">
+            <column name="article_colors_id" not-null="true" />
+        </many-to-one>
+        <property name="articleSize" type="string">
+            <column name="article_size" length="6" not-null="true" />
+        </property>
+        <property name="articleGencod" type="string">
+            <column name="article_gencod" length="13" not-null="true" />
+        </property>
+        <property name="articleKey" type="string">
+            <column name="article_key" length="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
