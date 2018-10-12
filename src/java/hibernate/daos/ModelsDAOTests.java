@@ -3,6 +3,7 @@ package hibernate.daos;
 
 import hibernate.entities.GridSize;
 import hibernate.entities.Models;
+import hibernate.entities.Seasons;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.Session;
@@ -37,8 +38,10 @@ public class ModelsDAOTests {
         // INSERT 
         GridSize gridSize = new GridSize();
         gridSize.setGridSizeId(1);
+        Seasons season = new Seasons();
+        season.setSeasonId(1);
         
-        Models model = new Models(gridSize, "11111222","test 2","17H");
+        Models model = new Models(gridSize, season, "33145882","test 2");
         
 // 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 10 oct. 2018 14:43:49 by Hibernate Tools 4.3.1 -->
+<!-- Generated 12 oct. 2018 17:49:20 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="hibernate.entities.Models" table="models" catalog="flyinpizzas_mdabase" optimistic-lock="version">
         <id name="modelId" type="java.lang.Integer">
@@ -11,14 +11,14 @@
         <many-to-one name="gridSize" class="hibernate.entities.GridSize" fetch="select">
             <column name="model_grid_size" not-null="true" />
         </many-to-one>
+        <many-to-one name="seasons" class="hibernate.entities.Seasons" fetch="select">
+            <column name="model_season_id" not-null="true" />
+        </many-to-one>
         <property name="modelModel" type="string">
-            <column name="model_model" length="8" not-null="true" />
+            <column name="model_model" length="8" not-null="true" unique="true" />
         </property>
         <property name="modelDesignation" type="string">
             <column name="model_designation" length="200" not-null="true" />
-        </property>
-        <property name="modelSeason" type="string">
-            <column name="model_season" length="5" not-null="true" />
         </property>
         <set name="colorses" table="colors" inverse="true" lazy="true" fetch="select">
             <key>

@@ -41,9 +41,12 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="flyinpizzas_mdabase"/>
-  <table-filter match-name="colors"/>
   <table-filter match-name="grid_size"/>
-  <table-filter match-name="articles"/>
   <table-filter match-name="code_colors"/>
+  <table-filter match-name="articles"/>
+  <table-filter match-name="seasons"/>
+  <table-filter match-name="colors"/>
+  <table-filter match-name="places"/>
+  <table-filter match-name="stocks"/>
   <table-filter match-name="models"/>
 </hibernate-reverse-engineering>

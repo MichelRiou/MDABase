@@ -25,7 +25,7 @@ public class ModelsDAO {
     }
 // --- Renvoie la liste des pays    
 
-    public List<Models> getModels()  {
+    public List<Models> getModels() {
         List<Models> modelListe = null;
         try {
             Query q = this.sessionH.createQuery("from Models ORDER BY modelId");
@@ -38,7 +38,7 @@ public class ModelsDAO {
 /// getPays (Tous)    
 // --- Renvoie un pays    
 
-    public Models getModels(String asID) {
+    public Models getModel(String asID) {
         Models model = null;
         try {
             Query q = this.sessionH.createQuery("from Models WHERE modelId=?");
@@ -53,7 +53,7 @@ public class ModelsDAO {
 // ----------------------------    
 
     public Boolean inserer(Models model) {
-        Boolean OK =false;
+        Boolean OK = false;
 
         org.hibernate.Transaction tx = sessionH.beginTransaction();
         try {
@@ -63,42 +63,40 @@ public class ModelsDAO {
             OK = true;
         } catch (HibernateException e) {
             tx.rollback();
-          
+
         }
         return OK;
     }
 /// ajouter    
 // ------------------------------    
 
-    public String supprimer(Models model) {
-        String lsMessage;
+    public Boolean supprimer(Models model) {
+        Boolean OK = false;
         org.hibernate.Transaction tx = sessionH.beginTransaction();
         try {
             sessionH.delete(model);
             tx.commit();
-            lsMessage = "Suppression OK";
+            OK = true;
         } catch (HibernateException e) {
             tx.rollback();
-            lsMessage = e.getMessage();
+
         }
-        return lsMessage;
+        return OK;
     }
 /// supprimer    
 // ------------------    
 
-    public String modifier(Models model) {
-        String lsMessage;
+    public Boolean modifier(Models model) {
+        Boolean OK = false;
         org.hibernate.Transaction tx = sessionH.beginTransaction();
         try {
             sessionH.update(model);
-
             tx.commit();
-            lsMessage = "Modification OK";
+            OK = true;
         } catch (HibernateException e) {
             tx.rollback();
-            lsMessage = "Erreur modification : " + e.getMessage();
         }
-        return lsMessage;
+        return OK;
     }
 /// modifier    
 // ------------------------    

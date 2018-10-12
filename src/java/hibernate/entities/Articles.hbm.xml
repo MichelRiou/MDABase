@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 10 oct. 2018 14:43:49 by Hibernate Tools 4.3.1 -->
+<!-- Generated 12 oct. 2018 17:49:20 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="hibernate.entities.Articles" table="articles" catalog="flyinpizzas_mdabase" optimistic-lock="version">
         <id name="articleId" type="java.lang.Integer">
@@ -20,5 +20,11 @@
         <property name="articleKey" type="string">
             <column name="article_key" length="20" not-null="true" />
         </property>
+        <set name="stockses" table="stocks" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="stock_article_id" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.entities.Stocks" />
+        </set>
     </class>
 </hibernate-mapping>

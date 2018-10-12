@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12 oct. 2018 17:49:20 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.entities.Places" table="places" catalog="flyinpizzas_mdabase" optimistic-lock="version">
+        <id name="placeId" type="java.lang.Integer">
+            <column name="place_id" />
+            <generator class="identity" />
+        </id>
+        <property name="placeName" type="string">
+            <column name="place_name" length="6" not-null="true" unique="true" />
+        </property>
+        <property name="placeDesignation" type="string">
+            <column name="place_designation" length="50" not-null="true" />
+        </property>
+        <set name="stockses" table="stocks" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="stock_place_id" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.entities.Stocks" />
+        </set>
+    </class>
+</hibernate-mapping>

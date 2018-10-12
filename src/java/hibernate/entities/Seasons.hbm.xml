@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12 oct. 2018 17:49:20 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.entities.Seasons" table="seasons" catalog="flyinpizzas_mdabase" optimistic-lock="version">
+        <id name="seasonId" type="java.lang.Integer">
+            <column name="season_id" />
+            <generator class="identity" />
+        </id>
+        <property name="seasonName" type="string">
+            <column name="season_name" length="6" not-null="true" unique="true" />
+        </property>
+        <set name="modelses" table="models" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="model_season_id" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.entities.Models" />
+        </set>
+    </class>
+</hibernate-mapping>

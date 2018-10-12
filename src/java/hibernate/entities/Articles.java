@@ -1,7 +1,9 @@
 package hibernate.entities;
-// Generated 10 oct. 2018 14:43:45 by Hibernate Tools 4.3.1
+// Generated 12 oct. 2018 17:49:19 by Hibernate Tools 4.3.1
 
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -29,15 +32,24 @@ public class Articles  implements java.io.Serializable {
      private String articleSize;
      private String articleGencod;
      private String articleKey;
+     private Set stockses = new HashSet(0);
 
     public Articles() {
     }
 
+	
     public Articles(Colors colors, String articleSize, String articleGencod, String articleKey) {
+        this.colors = colors;
+        this.articleSize = articleSize;
+        this.articleGencod = articleGencod;
+        this.articleKey = articleKey;
+    }
+    public Articles(Colors colors, String articleSize, String articleGencod, String articleKey, Set stockses) {
        this.colors = colors;
        this.articleSize = articleSize;
        this.articleGencod = articleGencod;
        this.articleKey = articleKey;
+       this.stockses = stockses;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -90,6 +102,15 @@ public class Articles  implements java.io.Serializable {
     
     public void setArticleKey(String articleKey) {
         this.articleKey = articleKey;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="articles")
+    public Set getStockses() {
+        return this.stockses;
+    }
+    
+    public void setStockses(Set stockses) {
+        this.stockses = stockses;
     }
 
 
