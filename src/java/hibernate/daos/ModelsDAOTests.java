@@ -30,6 +30,9 @@ public class ModelsDAOTests {
         for (Models model : listemodel ){
             System.out.println(model.getModelModel());
             System.out.println(model.getModelId());
+            System.out.println(model.getGridSize().getGridSizeName());
+            System.out.println(model.getSeasons().getSeasonName());
+          
         }
         sessionH.closeSession(session);
         sessionH = new SessionH();
@@ -41,7 +44,7 @@ public class ModelsDAOTests {
         Seasons season = new Seasons();
         season.setSeasonId(1);
         
-        Models model = new Models(gridSize, season, "33145882","test 2");
+        Models model = new Models(gridSize, season, "53145882","test 2");
         
 // 
 

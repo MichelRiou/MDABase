@@ -46,6 +46,7 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:mysql://mysql-flyinpizzas.alwaysdata.net:3306/flyinpizzas_mdabase?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">155227</property>
     <property name="hibernate.connection.password">samovar77</property>
+    <property name="hibernate.show_sql">true</property>
     <mapping resource="hibernate/entities/Colors.hbm.xml"/>
     <mapping resource="hibernate/entities/GridSize.hbm.xml"/>
     <mapping resource="hibernate/entities/Articles.hbm.xml"/>
