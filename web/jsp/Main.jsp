@@ -120,7 +120,7 @@
     </noscript>
     <body>
         <div>
-           debut insert frag
+           debut insert ${fragment} frag 
         <jsp:include page="${fragment}" flush="true" />
         ${message}
         </div>

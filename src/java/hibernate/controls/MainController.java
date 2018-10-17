@@ -70,7 +70,7 @@ public class MainController extends HttpServlet {
                 request.setAttribute("fragment", "PaysDeleteFragment.jsp");
             } /// delete
             ////////////
-            if (lsAction.equals("managegrid")) {
+            if (lsAction.equals("manageGrid")) {
                 GridSizeDAO gridsizeDAO = new GridSizeDAO(session);
                 List<GridSize> listeGridSizes = gridsizeDAO.getGridSizes();
                 System.out.println("test");

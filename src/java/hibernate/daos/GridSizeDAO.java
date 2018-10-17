@@ -26,14 +26,14 @@ public class GridSizeDAO {
 // --- Renvoie la liste des pays    
 
     public List<GridSize> getGridSizes() {
-        List<GridSize> GridSizeList = null;
+        List<GridSize> gridSizeList = null;
         try {
-            Query q = this.sessionH.createQuery("from GridSize ORDER BY grid_size_name");
-            GridSizeList = q.list();
+            Query q = this.sessionH.createQuery("from GridSize ORDER BY gridSizeName");
+            gridSizeList = q.list();
         } catch (HibernateException e) {
             e.printStackTrace();
         }
-        return GridSizeList;
+        return gridSizeList;
     }
 /// getPays (Tous)    
 // --- Renvoie un pays    
@@ -41,7 +41,7 @@ public class GridSizeDAO {
     public GridSize getGridSize(String asName) {
         GridSize gridSize = null;
         try {
-            Query q = this.sessionH.createQuery("from GridSize WHERE grid_size_name=?");
+            Query q = this.sessionH.createQuery("from GridSize WHERE gridSizeName=?");
             q.setString(0, asName);
             gridSize = (GridSize) q.uniqueResult();
         } catch (HibernateException e) {
