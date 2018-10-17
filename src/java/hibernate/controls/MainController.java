@@ -5,6 +5,7 @@
  */
 package hibernate.controls;
 
+import hibernate.daos.GridSizeDAO;
 import hibernate.daos.ModelsDAO;
 import hibernate.daos.SessionH;
 import hibernate.entities.GridSize;
@@ -39,20 +40,19 @@ public class MainController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("depart");
         response.setContentType("text/html;charset=UTF-8");
         // --- Les variables communes
         String lsAction;
         SessionH sessionH = new SessionH();
         Session session = sessionH.getSession();
-        ModelsDAO modelDAO = new ModelsDAO(session);
-
-        
-
+      
 
         try {
             lsAction = request.getParameter("action");
 // --- AFFICHAGE
             if (lsAction.equals("select")) {
+                  ModelsDAO modelDAO = new ModelsDAO(session);
                 List<Models> listeModels = modelDAO.getModels();
                 request.setAttribute("titre", "Liste");
                 request.setAttribute("fragment", "ModelSelectFrag.jsp");
@@ -69,6 +69,23 @@ public class MainController extends HttpServlet {
                 request.setAttribute("titre", "Suppression");
                 request.setAttribute("fragment", "PaysDeleteFragment.jsp");
             } /// delete
+            ////////////
+            if (lsAction.equals("managegrid")) {
+                GridSizeDAO gridsizeDAO = new GridSizeDAO(session);
+                List<GridSize> listeGridSizes = gridsizeDAO.getGridSizes();
+                System.out.println("test");
+                for (GridSize gridsize : listeGridSizes) {
+                    System.out.println('a' + gridsize.getGridSizeName());
+                    System.out.println(gridsize.getGs01());
+                    System.out.println(gridsize.getGs02());
+                    System.out.println(gridsize.getGs03());
+
+                }
+                request.setAttribute("titre", "Grille de taille");
+                request.setAttribute("fragment", "GridSizeManagerFrag.jsp");
+                request.setAttribute("listeGridSizes", listeGridSizes);
+            }
+            ////////////
             sessionH.closeSession(session);
         } /// try
         catch (Exception e) {
