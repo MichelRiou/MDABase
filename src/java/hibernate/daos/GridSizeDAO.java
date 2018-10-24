@@ -26,10 +26,13 @@ public class GridSizeDAO {
 // --- Renvoie la liste des pays    
 
     public List<GridSize> getGridSizes() {
+        
         List<GridSize> gridSizeList = null;
         try {
+            sessionH.flush();
             Query q = this.sessionH.createQuery("from GridSize ORDER BY gridSizeName");
             gridSizeList = q.list();
+             sessionH.flush();
         } catch (HibernateException e) {
             e.printStackTrace();
         }
