@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 // ----------------
 
 public class GridSizeDAO {
@@ -25,30 +26,46 @@ public class GridSizeDAO {
     }
 // --- Renvoie la liste des pays    
 
+    /**
+     *
+     * @return
+     */
     public List<GridSize> getGridSizes() {
-        
+        Transaction tx = null;
         List<GridSize> gridSizeList = null;
         try {
-            sessionH.flush();
+            tx = sessionH.beginTransaction();
             Query q = this.sessionH.createQuery("from GridSize ORDER BY gridSizeName");
             gridSizeList = q.list();
-             sessionH.flush();
+           // gridSizeList = this.sessionH.createQuery("from GridSize ORDER BY gridSizeName").list();
+            tx.commit();
         } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            sessionH.close();
         }
         return gridSizeList;
     }
-/// getPays (Tous)    
-// --- Renvoie un pays    
 
     public GridSize getGridSize(String asName) {
+        Transaction tx = null;
         GridSize gridSize = null;
         try {
+            tx = sessionH.beginTransaction();
             Query q = this.sessionH.createQuery("from GridSize WHERE gridSizeName=?");
             q.setString(0, asName);
             gridSize = (GridSize) q.uniqueResult();
+            tx.commit();
         } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            sessionH.close();
         }
         return gridSize;
     }
@@ -65,8 +82,12 @@ public class GridSizeDAO {
 
             OK = true;
         } catch (HibernateException e) {
-            tx.rollback();
-
+            if (tx != null) {
+                tx.rollback();
+            }
+             e.printStackTrace();
+        } finally {
+            sessionH.close();
         }
         return OK;
     }

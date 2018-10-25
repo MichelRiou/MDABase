@@ -7,7 +7,7 @@ Document : PaysInsertFragment.jsp
     function refresh() {
         $.ajax({
             type: 'POST',
-            url: '/MDABase/List?action=gridSize2',
+            url: '/MDABase/List?action=gridSize',
             /*  data:
              {
              "category": 0,

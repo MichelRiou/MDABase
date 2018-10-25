@@ -51,36 +51,13 @@ public class ListController extends HttpServlet {
 
             ////////////
             switch (lsAction) {
-
+             
                 case "gridSize":
-                    GridSizeDAO gridsizeDAO = new GridSizeDAO(session);
-                    List<GridSize> listeGridSizes = gridsizeDAO.getGridSizes();
-                    String HTML = "";
-                    response.setContentType("text/html");
-
-                    for (GridSize gridsize : listeGridSizes) {
-                        HTML = HTML + "<tr><td>" + gridsize.getGridSizeName() + "</td>" + "<td>" + gridsize.getGs01() + "</td>" + "<td>" + gridsize.getGs02() + "</td>" + "<td>" + gridsize.getGs03() + "</td>" + "<td>" + gridsize.getGs04() + "</td>" + "<td>" + gridsize.getGs05() + "</td>" + "<td>" + gridsize.getGs06() + "</td>" + "<td>" + gridsize.getGs07() + "</td>" + "<td>" + gridsize.getGs08() + "</td>" + "<td>" + gridsize.getGs09() + "</td>" + "<td>" + gridsize.getGs10() + "</td>" + "<td>" + gridsize.getGs11() + "</td></tr>";
-                    }
-
-                    response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-                    response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
-                    response.getWriter().write(HTML);       // Write response body.
-                case "gridSize2":
-                    //session.refresh();
-                    List<GridSize> listeGridSizes2=null;
+                    List<GridSize> listeGridSizes=null;
                     GridSizeDAO gridsizeDAO2=null;
                     gridsizeDAO2 = new GridSizeDAO(session);
-                    listeGridSizes2 = gridsizeDAO2.getGridSizes();
-                   
-                     
-                    for (GridSize gridsize : listeGridSizes2) {
-                        System.out.println(gridsize.getGridSizeName());
-                        System.out.println(gridsize.getGs01());
-                        System.out.flush();
-                    }
-                    response.setContentType("text/html");
-                    request.setAttribute("titre", "Grille de taille");
-                    request.setAttribute("listeGridSizes2", listeGridSizes2);
+                    listeGridSizes = gridsizeDAO2.getGridSizes();
+                    request.setAttribute("listeGridSizes", listeGridSizes);
                     request.getRequestDispatcher("jsp/listGridSize.jsp").forward(request, response);
                 default:
             }

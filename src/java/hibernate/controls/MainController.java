@@ -81,8 +81,8 @@ public class MainController extends HttpServlet {
                     System.out.println(gridsize.getGs03());
 
                 }*/
-                request.setAttribute("titre", "toto");
-                request.setAttribute("fragment", "GridSizeManagerFrag.jsp");
+                request.setAttribute("titre", "Grille de Taille");
+                request.setAttribute("fragment", "manageGridSize.jsp");
              //   request.setAttribute("listeGridSizes", listeGridSizes);
             }
             ////////////
