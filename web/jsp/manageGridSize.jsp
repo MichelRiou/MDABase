@@ -47,10 +47,10 @@ Document : PaysInsertFragment.jsp
     $(document).ready(function () {
         refresh();
     
-    /*    $("#btn").click(function () {
+      $("#btn").click(function () {
             refresh();
         });
-        $("#back").click(function () {
+     /*   $("#back").click(function () {
             window.history.back();
         });
         // Activate tooltip
@@ -168,11 +168,11 @@ Document : PaysInsertFragment.jsp
         <div><button id='btn'></button></div>
         <!-- RAFRAICHISSEMENT DU DETAIL VIA AJAX -->
        <!-- <div id="loader" class="offset-md-5 col-md-1 mx-auto"><img src="public/images/ajax-loader.gif"/></div> -->
-        <div id="ajax" class="scrollDiv2"></div>
+        <div id="ajax" class="container scrollDiv2"></div>
     </div>
 </div>
     <!-- Delete Modal HTML -->
-    <div id="deleteGridSizeModal" class="modal fade">
+    <div id="deleteModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form>

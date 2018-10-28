@@ -32,6 +32,7 @@ body {
 .scrollDiv2 {
     height:600px;
     overflow-y: auto;
+    overflow-x:auto;
 }
 
 .table-wrapper {

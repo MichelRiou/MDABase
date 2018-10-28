@@ -24,7 +24,7 @@
     </head>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <a class="navbar-brand" href="#">M.D.A</a>
+        <a class="navbar-brand" href="/MDABase/Main">M.D.A</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" 
                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -75,11 +75,11 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
                        role="button" data-toggle="dropdown" aria-haspopup="true" 
                        aria-expanded="false">
-                        Produits
+                        Paramètres
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" 
-                           href="routes.php?action=manageProductImport">EN ATTENTE DE VALIDATION</a>
+                           href="/MDABase/Main?action=manageGridSize">GRILLE DE TAILLE</a>
                         <a class="dropdown-item" 
                            href="routes.php?action=manageProduct">GESTION DES PRODUITS</a>
 

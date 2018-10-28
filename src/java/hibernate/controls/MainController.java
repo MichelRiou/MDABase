@@ -50,6 +50,11 @@ public class MainController extends HttpServlet {
 
         try {
             lsAction = request.getParameter("action");
+             if (lsAction.equals("")) {
+                
+                request.setAttribute("titre", "Main");
+
+            } /// select
 // --- AFFICHAGE
             if (lsAction.equals("select")) {
                 ModelsDAO modelDAO = new ModelsDAO(session);
@@ -70,7 +75,7 @@ public class MainController extends HttpServlet {
                 request.setAttribute("fragment", "PaysDeleteFragment.jsp");
             } /// delete
             ////////////
-            if (lsAction.equals("manageGrid")) {
+            if (lsAction.equals("manageGridSize")) {
           /*      GridSizeDAO gridsizeDAO = new GridSizeDAO(session);
                 List<GridSize> listeGridSizes = gridsizeDAO.getGridSizes();
                 System.out.println("test");
