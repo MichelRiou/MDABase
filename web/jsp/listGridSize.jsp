@@ -23,8 +23,8 @@ Document : PaysInsertFragment.jsp
                 <td>${objet.gs01}</td><td>${objet.gs02}</td><td>${objet.gs03}</td><td>${objet.gs04}</td><td>${objet.gs05}</td><td>${objet.gs06}</td><td>${objet.gs07}</td><td>${objet.gs08}</td><td>${objet.gs09}</td><td>${objet.gs10}</td><td>${objet.gs11}</td>
            <td class = "row">
                              <!--   <a href="#" class="view"><i class="material-icons" data-toggle="tooltip" title="Liste">&#xE242;</i></a> -->
-                                <a href="#editModal" value="" builder_ref="<?= $product->getProduct_builder_ref() ?>" ref="<?= $product->getProduct_ref() ?>" model="<?= $product->getProduct_model() ?>" builder="<?= $product->getProduct_builder() ?>" ean="<?= $product->getProduct_ean() ?>" designation="<?= $product->getProduct_designation() ?> " cat="<?= $product->getProduct_category() ?> " class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteModal" gridsizeid="${objet.gridSizeId}"  class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                <a href="#editModal"  value="" builder_ref="<?= $product->getProduct_builder_ref() ?>" ref="<?= $product->getProduct_ref() ?>" model="<?= $product->getProduct_model() ?>" builder="<?= $product->getProduct_builder() ?>" ean="<?= $product->getProduct_ean() ?>" designation="<?= $product->getProduct_designation() ?> " cat="<?= $product->getProduct_category() ?> " class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#deleteModal" serial_objet = ${objet} gridsizeid="${objet.gridSizeId}"  class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                             </td>
             </tr>
             <tr>

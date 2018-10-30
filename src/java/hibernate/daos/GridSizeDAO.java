@@ -37,7 +37,7 @@ public class GridSizeDAO {
             tx = sessionH.beginTransaction();
             Query q = this.sessionH.createQuery("from GridSize ORDER BY gridSizeName");
             gridSizeList = q.list();
-           // gridSizeList = this.sessionH.createQuery("from GridSize ORDER BY gridSizeName").list();
+            // gridSizeList = this.sessionH.createQuery("from GridSize ORDER BY gridSizeName").list();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -85,7 +85,7 @@ public class GridSizeDAO {
             if (tx != null) {
                 tx.rollback();
             }
-             e.printStackTrace();
+            e.printStackTrace();
         } finally {
             sessionH.close();
         }
@@ -96,14 +96,24 @@ public class GridSizeDAO {
 
     public Boolean del(GridSize gridSize) {
         Boolean OK = false;
-        org.hibernate.Transaction tx = sessionH.beginTransaction();
+        Transaction tx = null;
+       // tx = sessionH.beginTransaction();
         try {
+            tx = sessionH.beginTransaction();
             sessionH.delete(gridSize);
             tx.commit();
             OK = true;
+            System.out.println(Integer.toString(gridSize.getGridSizeId()));
+            System.out.println("delete OK");
         } catch (HibernateException e) {
-            tx.rollback();
-
+            System.out.println(Integer.toString(gridSize.getGridSizeId()));
+            System.out.println("delete KO");
+            e.printStackTrace();
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            sessionH.close();
         }
         return OK;
     }

@@ -6,17 +6,13 @@
 package hibernate.controls;
 
 import hibernate.daos.GridSizeDAO;
-import hibernate.daos.ModelsDAO;
 import hibernate.daos.SessionH;
 import hibernate.entities.GridSize;
-import hibernate.entities.Models;
-import hibernate.entities.Seasons;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +22,8 @@ import org.hibernate.Session;
  *
  * @author Michel
  */
-@WebServlet(name = "MainController", urlPatterns = {"/Main"}, initParams = {
-    @WebInitParam(name = "Name", value = "Value")})
-public class MainController extends HttpServlet {
+@WebServlet(name = "UpdateController", urlPatterns = {"/Update"})
+public class UpdateController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,57 +36,37 @@ public class MainController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      //  System.out.println("depart");
         response.setContentType("text/html;charset=UTF-8");
-        // --- Les variables communes
         String lsAction;
-        SessionH sessionH = new SessionH();
+        SessionH sessionH = null;
+        sessionH = new SessionH();
         Session session = sessionH.getSession();
 
         try {
             lsAction = request.getParameter("action");
-             if (lsAction.equals("")) {
-                
-                request.setAttribute("titre", "Main");
 
-            } /// select
-// --- AFFICHAGE
-            if (lsAction.equals("select")) {
-                ModelsDAO modelDAO = new ModelsDAO(session);
-                List<Models> listeModels = modelDAO.getModels();
-                request.setAttribute("titre", "Liste");
-                request.setAttribute("fragment", "ModelSelectFrag.jsp");
-                request.setAttribute("listeModels", listeModels);
-            } /// select
-// --- AJOUT
-            if (lsAction.equals("insert")) {
-                request.setAttribute("titre", "Ajout");
-                request.setAttribute("fragment", "ModelInsertFrag.jsp");
-
-            } /// insert
-// --- SUPPRESSION
-            if (lsAction.equals("delete")) {
-                request.setAttribute("titre", "Suppression");
-                request.setAttribute("fragment", "PaysDeleteFragment.jsp");
-            } /// delete
             ////////////
-            if (lsAction.equals("manageGridSize")) {
-          /*      GridSizeDAO gridsizeDAO = new GridSizeDAO(session);
-                List<GridSize> listeGridSizes = gridsizeDAO.getGridSizes();
-                System.out.println("test");
-                for (GridSize gridsize : listeGridSizes) {
-                    System.out.println('a' + gridsize.getGridSizeName());
-                    System.out.println(gridsize.getGs01());
-                    System.out.println(gridsize.getGs02());
-                    System.out.println(gridsize.getGs03());
+            switch (lsAction) {
 
-                }*/
-                request.setAttribute("titre", "Grille de Taille");
-                request.setAttribute("fragment", "manageGridSize.jsp");
-             //   request.setAttribute("listeGridSizes", listeGridSizes);
+                case "deleteGridSize":
+                  //String ls = request.getParameter("objet");
+                 //Integer id = (Integer) request.getParameter("id");
+                 Integer id = Integer.parseInt(request.getParameter("id"));
+                 System.out.println("test");
+                 
+                    GridSizeDAO gridsizeDAO = new GridSizeDAO(session);
+                    GridSize obj = new GridSize();
+                    obj.setGridSizeId(id);
+                    obj.setGridSizeName("toto");
+                    gridsizeDAO.del(obj);
+                    response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+                    response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+                    //response.getWriter().write("OK c'est cool" + obj.getGridSizeName()); 
+                    System.out.println("test2 " + Integer.toString(id));// Write response body.
+                     response.getWriter().write("OK c'est cool"); 
+                default:
             }
-            ////////////
-            if (lsAction.equals("listGrid")) {
+            /*   if (lsAction.equals("gridSize")) {
                 GridSizeDAO gridsizeDAO = new GridSizeDAO(session);
                 List<GridSize> listeGridSizes = gridsizeDAO.getGridSizes();
                 String HTML = "";
@@ -104,18 +79,26 @@ public class MainController extends HttpServlet {
                 response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
                 response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
                 response.getWriter().write(HTML);       // Write response body.
-            }
-            sessionH.closeSession(session);
+            }*/
+ /*    if (lsAction.equals("gridSize2")) {
+                GridSizeDAO gridsizeDAO = new GridSizeDAO(session);
+                List<GridSize> listeGridSizes = gridsizeDAO.getGridSizes();
+                response.setContentType("text/html");
+                request.setAttribute("listeGridSizes", listeGridSizes);
+                request.getRequestDispatcher("jsp/listGridSize.jsp").forward(request, response);
+            }*/
+
         } /// try
         catch (Exception e) {
             request.setAttribute("message", e.getMessage());
         } /// catch
-        String lsURL = "jsp/Main.jsp";
-        
-        request.getRequestDispatcher(lsURL).forward(request, response);
-    }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+        finally {
+            sessionH.closeSession(session);
+        }
 
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

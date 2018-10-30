@@ -122,7 +122,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS01", nullable=false, length=6)
+    @Column(name="GS01", nullable=true, length=6)
     public String getGs01() {
         return this.gs01;
     }
@@ -132,7 +132,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS02", nullable=false, length=6)
+    @Column(name="GS02", nullable=true, length=6)
     public String getGs02() {
         return this.gs02;
     }
@@ -142,7 +142,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS03", nullable=false, length=6)
+    @Column(name="GS03", nullable=true, length=6)
     public String getGs03() {
         return this.gs03;
     }
@@ -152,7 +152,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS04", nullable=false, length=6)
+    @Column(name="GS04", nullable=true, length=6)
     public String getGs04() {
         return this.gs04;
     }
@@ -162,7 +162,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS05", nullable=false, length=6)
+    @Column(name="GS05", nullable=true, length=6)
     public String getGs05() {
         return this.gs05;
     }
@@ -172,7 +172,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS06", nullable=false, length=6)
+    @Column(name="GS06", nullable=true, length=6)
     public String getGs06() {
         return this.gs06;
     }
@@ -182,7 +182,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS07", nullable=false, length=6)
+    @Column(name="GS07", nullable=true, length=6)
     public String getGs07() {
         return this.gs07;
     }
@@ -192,7 +192,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS08", nullable=false, length=6)
+    @Column(name="GS08", nullable=true, length=6)
     public String getGs08() {
         return this.gs08;
     }
@@ -202,7 +202,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS09", nullable=false, length=6)
+    @Column(name="GS09", nullable=true, length=6)
     public String getGs09() {
         return this.gs09;
     }
@@ -212,7 +212,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS10", nullable=false, length=6)
+    @Column(name="GS10", nullable=true, length=6)
     public String getGs10() {
         return this.gs10;
     }
@@ -222,7 +222,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS11", nullable=false, length=6)
+    @Column(name="GS11", nullable=true, length=6)
     public String getGs11() {
         return this.gs11;
     }
@@ -232,7 +232,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS12", nullable=false, length=6)
+    @Column(name="GS12", nullable=true, length=6)
     public String getGs12() {
         return this.gs12;
     }
@@ -242,7 +242,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS13", nullable=false, length=6)
+    @Column(name="GS13", nullable=true, length=6)
     public String getGs13() {
         return this.gs13;
     }
@@ -252,7 +252,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS14", nullable=false, length=6)
+    @Column(name="GS14", nullable=true, length=6)
     public String getGs14() {
         return this.gs14;
     }
@@ -262,7 +262,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS15", nullable=false, length=6)
+    @Column(name="GS15", nullable=true, length=6)
     public String getGs15() {
         return this.gs15;
     }
@@ -272,7 +272,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS16", nullable=false, length=6)
+    @Column(name="GS16", nullable=true, length=6)
     public String getGs16() {
         return this.gs16;
     }
@@ -282,7 +282,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS17", nullable=false, length=6)
+    @Column(name="GS17", nullable=true, length=6)
     public String getGs17() {
         return this.gs17;
     }
@@ -292,7 +292,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS18", nullable=false, length=6)
+    @Column(name="GS18", nullable=true, length=6)
     public String getGs18() {
         return this.gs18;
     }
@@ -302,7 +302,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS19", nullable=false, length=6)
+    @Column(name="GS19", nullable=true, length=6)
     public String getGs19() {
         return this.gs19;
     }
@@ -312,7 +312,7 @@ public class GridSize  implements java.io.Serializable {
     }
 
     
-    @Column(name="GS20", nullable=false, length=6)
+    @Column(name="GS20", nullable=true, length=6)
     public String getGs20() {
         return this.gs20;
     }
