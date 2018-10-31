@@ -55,9 +55,6 @@ Document : PaysInsertFragment.jsp
         $("#deleteCancel").click(function () {
             $("#deleteMessage").html("");
         });
-
-        // Activate tooltip
-        // $('[data-toggle="tooltip"]').tooltip();
         // Validation de la modal AJOUTER UNE REPONSE
         $("#addButton").click(function () {
             $("#addAlpha").val('');
@@ -94,6 +91,54 @@ Document : PaysInsertFragment.jsp
          return false;
          }
          }));*/
+                $("#addOk").on('click', (function () {
+            if (ctrlAdd()) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/MDABase/Update',
+                    data:
+                            {
+                                "action": "addGridSize",
+                                "addGridName" : $("#addGridName").val(),
+                                "addGs01" : $("#addGs01").val(),
+                                "addGs02" : $("#addGs02").val(),
+                                "addGs03" : $("#addGs03").val(),
+                                "addGs04" : $("#addGs04").val(),
+                                "addGs05" : $("#addGs05").val(),
+                                "addGs06" : $("#addGs06").val(),
+                                "addGs07" : $("#addGs07").val(),
+                                "addGs08" : $("#addGs08").val(),
+                                "addGs09" : $("#addGs09").val(),
+                                "addGs10" : $("#addGs10").val(),
+                                "addGs11" : $("#addGs11").val(),
+                                "addGs12" : $("#addGs12").val(),
+                                "addGs13" : $("#addGs13").val(),
+                                "addGs14" : $("#addGs14").val(),
+                                "addGs15" : $("#addGs15").val(),
+                                "addGs16" : $("#addGs16").val(),
+                                "addGs17" : $("#addGs17").val(),
+                                "addGs18" : $("#addGs18").val(),
+                                "addGs19" : $("#addGs19").val(),
+                                "addGs20" : $("#addGs20").val()
+                            },
+                    success: function (data) {
+                            console.log(data);
+                        if (data != "Done") {
+                            $("#addMessage").html(data);
+                        } else {
+                            $('#addCancel').trigger('click');
+                            refresh();
+                        }
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                        $("#retour").html("Erreur d\'envoi de la requête d\'ajout");
+                    }
+                });
+                return false;
+            }
+        }));
         // Requête AJAX pour validation
         $("#deleteOk").on('click', (function () {
             if (ctrlDelete()) {
@@ -108,7 +153,7 @@ Document : PaysInsertFragment.jsp
                     success: function (data) {
 
                         if (data == false) {
-                            $("#deleteMessage").html("Erreur sur requête ==>" + data);
+                            $("#deleteMessage").html("Erreur sur requête de suppression==>" + data);
                         } else {
                             $('#deleteCancel').trigger('click');
                             refresh();
@@ -117,7 +162,7 @@ Document : PaysInsertFragment.jsp
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alert(textStatus);
-                        $("#retour").html("Erreur d\'envoi de la requête");
+                        $("#retour").html("Erreur d\'envoi de la requête de suppression");
                     }
                 });
                 return false;
@@ -215,34 +260,100 @@ Document : PaysInsertFragment.jsp
                         <input type="text" class="form-control"  id="addGridName">
                     </div>
                     <div class="form-row">
-                        <div class="form-group ">
+                        <div class="form-group col-md-2">
                             <label>1</label>
                             <input type="text" class="form-control"  id="addGs01">
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group col-md-2">
                             <label>2</label>
                             <input type="text" class="form-control"  id="addGs02">
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group col-md-2">
                             <label>3</label>
                             <input type="textr" class="form-control"  id="addGs03">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-2">
                             <label>4</label>
                             <input type="textr" class="form-control"  id="addGs04">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-2">
                             <label>5</label>
                             <input type="textr" class="form-control"  id="addGs05">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label>6</label>
+                            <input type="text" class="form-control"  id="addGs06">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>7</label>
+                            <input type="text" class="form-control"  id="addGs07">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>8</label>
+                            <input type="textr" class="form-control"  id="addGs08">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>9</label>
+                            <input type="textr" class="form-control"  id="addGs09">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>10</label>
+                            <input type="textr" class="form-control"  id="addGs10">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label>11</label>
+                            <input type="text" class="form-control"  id="addGs11">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>12</label>
+                            <input type="text" class="form-control"  id="addGs12">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>13</label>
+                            <input type="textr" class="form-control"  id="addGs13">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>14</label>
+                            <input type="textr" class="form-control"  id="addGs14">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>15</label>
+                            <input type="textr" class="form-control"  id="addGs15">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label>16</label>
+                            <input type="text" class="form-control"  id="addGs16">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>17</label>
+                            <input type="text" class="form-control"  id="addGs17">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>18</label>
+                            <input type="textr" class="form-control"  id="addGs18">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>19</label>
+                            <input type="textr" class="form-control"  id="addGs19">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>20</label>
+                            <input type="textr" class="form-control"  id="addGs20">
                         </div>
                     </div>
 
 
                 </div>
-                <div id="addMessage" class="text-warning align-center"></div>
+                <div id="addMessage" class="text-warning text-justify"></div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Abandon" id="addCancel">
-                    <input type="button" class="btn btn-info" value="Ajouter" id="addTag" >
+                    <input type="button" class="btn btn-info" value="Ajouter" id="addOk" >
                 </div>
             </form>
         </div>

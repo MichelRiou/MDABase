@@ -49,21 +49,47 @@ public class UpdateController extends HttpServlet {
             switch (lsAction) {
 
                 case "deleteGridSize":
-                  //String ls = request.getParameter("objet");
-                 //Integer id = (Integer) request.getParameter("id");
                  Integer id = Integer.parseInt(request.getParameter("id"));
-                 System.out.println("test");
-                 
-                    GridSizeDAO gridsizeDAO = new GridSizeDAO(session);
-                    GridSize obj = new GridSize();
-                    obj.setGridSizeId(id);
-                    obj.setGridSizeName("toto");
-                    gridsizeDAO.del(obj);
+                    GridSizeDAO deleteGridSizeDAO = new GridSizeDAO(session);
+                    GridSize deleteGridSize = new GridSize();
+                    deleteGridSize.setGridSizeId(id);
+                    deleteGridSize.setGridSizeName("toto");
+                    deleteGridSizeDAO.del(deleteGridSize);
                     response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
                     response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
                     //response.getWriter().write("OK c'est cool" + obj.getGridSizeName()); 
                     System.out.println("test2 " + Integer.toString(id));// Write response body.
                      response.getWriter().write("OK c'est cool"); 
+                case "addGridSize":
+                 String  addGridName = request.getParameter("addGridName");
+                 String  addGs01 = request.getParameter("addGs01");
+                 String  addGs02 = request.getParameter("addGs02");
+                 String  addGs03 = request.getParameter("addGs03");
+                 String  addGs04 = request.getParameter("addGs04");
+                 String  addGs05 = request.getParameter("addGs05");
+                 String  addGs06 = request.getParameter("addGs06");
+                 String  addGs07 = request.getParameter("addGs07");
+                 String  addGs08 = request.getParameter("addGs08");
+                 String  addGs09 = request.getParameter("addGs09");
+                 String  addGs10 = request.getParameter("addGs10");
+                 String  addGs11 = request.getParameter("addGs11");
+                 String  addGs12 = request.getParameter("addGs12");
+                 String  addGs13 = request.getParameter("addGs13");
+                 String  addGs14 = request.getParameter("addGs14");
+                 String  addGs15 = request.getParameter("addGs15");
+                 String  addGs16 = request.getParameter("addGs16");
+                 String  addGs17 = request.getParameter("addGs17");
+                 String  addGs18 = request.getParameter("addGs18");
+                 String  addGs19 = request.getParameter("addGs19");
+                 String  addGs20 = request.getParameter("addGs20");
+                    GridSizeDAO addGridSizeDAO = new GridSizeDAO(session);
+                    GridSize addGridSize = new GridSize(addGridName,addGs01,addGs02,addGs03,addGs04,addGs05,addGs06,addGs07,addGs08,addGs09,addGs10,addGs11,addGs12,addGs13,addGs14,addGs15,addGs16,addGs17,addGs18,addGs19,addGs20 );
+                    String result = addGridSizeDAO.ins(addGridSize);
+                    response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+                    response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+                    //response.getWriter().write("OK c'est cool" + obj.getGridSizeName()); 
+                    System.out.println("result = " + result);// Write response body.
+                     response.getWriter().write(result); 
                 default:
             }
             /*   if (lsAction.equals("gridSize")) {

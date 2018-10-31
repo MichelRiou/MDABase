@@ -72,24 +72,25 @@ public class GridSizeDAO {
 /// getPays (Un)    
 // ----------------------------    
 
-    public Boolean ins(GridSize gridSize) {
-        Boolean OK = false;
+    public String ins(GridSize gridSize) {
+        String result = "Done";
 
         org.hibernate.Transaction tx = sessionH.beginTransaction();
         try {
             sessionH.save(gridSize);
             tx.commit();
 
-            OK = true;
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            String msgSQL = e.getMessage()+ e.getCause();
+            result=(msgSQL.contains("Duplicate entry")?"Grille de taille déjà existante":"Erreur d'insertion");
             e.printStackTrace();
         } finally {
             sessionH.close();
         }
-        return OK;
+        return result;
     }
 /// ajouter    
 // ------------------------------    
@@ -97,7 +98,7 @@ public class GridSizeDAO {
     public Boolean del(GridSize gridSize) {
         Boolean OK = false;
         Transaction tx = null;
-       // tx = sessionH.beginTransaction();
+        // tx = sessionH.beginTransaction();
         try {
             tx = sessionH.beginTransaction();
             sessionH.delete(gridSize);

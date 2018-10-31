@@ -74,30 +74,7 @@ public class GridSize  implements java.io.Serializable {
         this.gs19 = gs19;
         this.gs20 = gs20;
     }
-    public GridSize(String gridSizeName, String gs01, String gs02, String gs03, String gs04, String gs05, String gs06, String gs07, String gs08, String gs09, String gs10, String gs11, String gs12, String gs13, String gs14, String gs15, String gs16, String gs17, String gs18, String gs19, String gs20, Set modelses) {
-       this.gridSizeName = gridSizeName;
-       this.gs01 = gs01;
-       this.gs02 = gs02;
-       this.gs03 = gs03;
-       this.gs04 = gs04;
-       this.gs05 = gs05;
-       this.gs06 = gs06;
-       this.gs07 = gs07;
-       this.gs08 = gs08;
-       this.gs09 = gs09;
-       this.gs10 = gs10;
-       this.gs11 = gs11;
-       this.gs12 = gs12;
-       this.gs13 = gs13;
-       this.gs14 = gs14;
-       this.gs15 = gs15;
-       this.gs16 = gs16;
-       this.gs17 = gs17;
-       this.gs18 = gs18;
-       this.gs19 = gs19;
-       this.gs20 = gs20;
-       this.modelses = modelses;
-    }
+    
    
      @Id @GeneratedValue(strategy=IDENTITY)
 
