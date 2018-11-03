@@ -120,7 +120,7 @@
     </noscript>
     <body>
         <div>
-       
+
             <jsp:include page="${fragment}" flush="true" />
             ${message}
         </div>
