@@ -8,6 +8,7 @@ package hibernate.controls;
 import hibernate.daos.GridSizeDAO;
 import hibernate.daos.SessionH;
 import hibernate.entities.GridSize;
+import hibernate.entities.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 
 /**
@@ -43,44 +45,54 @@ public class RouteDispatcher extends HttpServlet {
         SessionH sessionH = null;
         sessionH = new SessionH();
         Session session = sessionH.getSession();
+        HttpSession userSession = request.getSession(false);
 
-        try {
-            lsAction = request.getParameter("action");
-            String lURL = "";
-            ////////////
-            switch (lsAction) {
+        //Users user = (Users) userSession.getAttribute("user");
+        if (userSession == null || userSession.getAttribute("user") == null) {
+            request.getRequestDispatcher("Secure").forward(request, response);
+            //response.sendRedirect("Secure");
+        } else {
+            try {
+                lsAction = request.getParameter("action");
+                String lURL = "";
+                ////////////
+                switch (lsAction) {
 
-                case "managegridSize":
-                    /* List<GridSize> listeGridSizes = null;
+                    case "manageGridSize":
+                        /* List<GridSize> listeGridSizes = null;
                     GridSizeDAO gridsizeDAO2 = null;
                     gridsizeDAO2 = new GridSizeDAO(session);
                     listeGridSizes = gridsizeDAO2.getGridSizes();*/
-                    //request.setAttribute("listeGridSizes", listeGridSizes);
+                        //request.setAttribute("listeGridSizes", listeGridSizes);
+                        // request.getRequestDispatcher("jsp/listGridSize.jsp").forward(request, response);
+                        request.setAttribute("titre", "Ajout");
+                        request.setAttribute("fragment", "manageGridSize.jsp");
+                        lsURL = "jsp/Main.jsp";
+                        break;
+                    case "listGridSize":
+                        List<GridSize> listeGridSizes = null;
+                        GridSizeDAO gridsizeDAO2 = null;
+                        gridsizeDAO2 = new GridSizeDAO(session);
+                        listeGridSizes = gridsizeDAO2.getGridSizes();
+                        request.setAttribute("listeGridSizes", listeGridSizes);
+                        lsURL = "jsp/listGridSize.jsp";
+                        break;
                     // request.getRequestDispatcher("jsp/listGridSize.jsp").forward(request, response);
-                    request.setAttribute("titre", "Ajout");
-                    request.setAttribute("fragment", "manageGridSize.jsp");
-                    lsURL = "jsp/Main.jsp";
-                    break;
-                case "listgridSize":
-                    List<GridSize> listeGridSizes = null;
-                    GridSizeDAO gridsizeDAO2 = null;
-                    gridsizeDAO2 = new GridSizeDAO(session);
-                    listeGridSizes = gridsizeDAO2.getGridSizes();
-                    request.setAttribute("listeGridSizes", listeGridSizes);
-                    lsURL = "jsp/listGridSize.jsp";
-                    break;
-                // request.getRequestDispatcher("jsp/listGridSize.jsp").forward(request, response);
-                default:
+                    default:
+                        request.setAttribute("titre", "Main");
+                        lsURL = "jsp/Main.jsp";
+                        break;
+                }
+                //lsURL = lURL;
+            } catch (Exception e) {
+                request.setAttribute("message", e.getMessage());
+            } /// catch
+            finally {
+                sessionH.closeSession(session);
             }
-            //lsURL = lURL;
-        } catch (Exception e) {
-            request.setAttribute("message", e.getMessage());
-        } /// catch
-        finally {
-            sessionH.closeSession(session);
-        }
 
-        request.getRequestDispatcher(lsURL).forward(request, response);
+            request.getRequestDispatcher(lsURL).forward(request, response);
+        }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 

@@ -7,8 +7,8 @@ Document : PaysInsertFragment.jsp
     function refresh() {
         $.ajax({
             type: 'POST',
-            //url: '/MDABase/List?action=gridSize',
-            url: '/MDABase/Route?action=listgridSize',
+            url: '/MDABase/Route',
+            data: {"action": "listGridSize"}, 
             success: function (tableHtml) {
                 $("#tableList").html(tableHtml);
                 $('[data-toggle="tooltip"]').tooltip();

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 8 nov. 2018 10:45:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.entities.Users" table="users" catalog="flyinpizzas_mdabase" optimistic-lock="version">
+        <id name="userId" type="java.lang.Integer">
+            <column name="user_id" />
+            <generator class="identity" />
+        </id>
+        <property name="userName" type="string">
+            <column name="user_name" length="50" not-null="true" />
+        </property>
+        <property name="userRole" type="int">
+            <column name="user_role" not-null="true" />
+        </property>
+        <property name="userPassword" type="string">
+            <column name="user_password" length="80"/>
+        </property>
+        <one-to-one name="roles" class="hibernate.entities.Roles"></one-to-one>
+    </class>
+</hibernate-mapping>

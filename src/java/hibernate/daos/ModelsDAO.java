@@ -110,4 +110,4 @@ public class ModelsDAO {
         }
         return listeColonnes;
     } /// getAttributsBean 
-} /// class PaysDAO
+} 

@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 12 oct. 2018 17:49:20 by Hibernate Tools 4.3.1 -->
+<!-- Generated 8 nov. 2018 10:45:50 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="hibernate.entities.Stocks" table="stocks" catalog="flyinpizzas_mdabase" optimistic-lock="version">
+    <class name="hibernate.entities.Stocks" table="stocks" catalog="flyinpizzas_mdabase">
         <id name="stockId" type="java.lang.Integer">
             <column name="stock_id" />
-            <generator class="identity" />
+            <generator class="identity"></generator>
         </id>
         <many-to-one name="articles" class="hibernate.entities.Articles" fetch="select">
             <column name="stock_article_id" not-null="true" />

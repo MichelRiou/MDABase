@@ -4,6 +4,7 @@
     Author     : Michel
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -24,7 +25,7 @@
     </head>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <a class="navbar-brand" href="/MDABase/Main">M.D.A</a>
+        <a class="navbar-brand" href="/MDABase/Route">M.D.A</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" 
                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +80,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" 
-                           href="/MDABase/Main?action=manageGridSize">GRILLE DE TAILLE</a>
+                           href="/MDABase/Route?action=manageGridSize">GRILLE DE TAILLE</a>
                         <a class="dropdown-item" 
                            href="routes.php?action=manageProduct">GESTION DES PRODUITS</a>
 
@@ -106,20 +107,26 @@
             </ul> 
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ">
-                    <a class="nav-link " href="routes.php?action=disconnectUser">Utilisateur  : </a>
-                </li>
-            </ul>
-        </div>
-    </nav> 
+                    <a class="nav-link " href="Secure?action=disconnectUser">Utilisateur  : 
+                        <c:choose> 
+                            <c:when test="${!empty sessionScope.user}">
+                                <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
+                                ${sessionScope.user.userName}
+                            </c:when>
+                            <c:otherwise>Non connecté</c:otherwise></c:choose></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav> 
 
-    <noscript>
-    <div>
-        <div class="container py-5 extra">
-            <div class="row"></div><h2><p>Sans Javascript ce site ne peut pas fonctionner.</p></h2></div>
-    </div>
-    </noscript>
-    <body>
-        <div>
+            <noscript>
+            <div>
+                <div class="container py-5 extra">
+                    <div class="row"></div><h2><p>Sans Javascript ce site ne peut pas fonctionner.</p></h2></div>
+            </div>
+            </noscript>
+            <body>
+                <div>
 
             <jsp:include page="${fragment}" flush="true" />
             ${message}
