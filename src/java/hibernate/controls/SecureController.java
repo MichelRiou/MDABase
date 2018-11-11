@@ -33,9 +33,9 @@ public class SecureController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
         if (request.getParameter("username") != null && request.getParameter("password") != null) {
-             HttpSession userSession = request.getSession();
+            HttpSession userSession = request.getSession();
             Users user = new Users();
             user.setUserName(request.getParameter("username"));
             //HttpSession userSession = request.getSession();
@@ -44,22 +44,25 @@ public class SecureController extends HttpServlet {
             request.setAttribute("fragment", "bonjour.jsp");
             request.getRequestDispatcher("jsp/Main.jsp").forward(request, response);
 
-        } else {
-            if (request.getParameter("disconnectUser") != null) {
-                // HttpSession userSession = request.getSession();
-                 HttpSession userSession = request.getSession(false);
+        } else if ("disconnectUser".equals(request.getParameter("action"))) {
+            // HttpSession userSession = request.getSession();
+            HttpSession userSession = request.getSession(false);
+            if (userSession != null){ 
                 userSession.invalidate();
-                response.setContentType("text/html;charset=UTF-8");
-                System.out.println("OK");
-                request.setAttribute("fragment", "aurevoir.jsp");
-                request.getRequestDispatcher("jsp/Main.jsp").forward(request, response);
-                //response.sendRedirect("index.jsp");
-            } else {
-                response.setContentType("text/html;charset=UTF-8");
-                request.setAttribute("fragment", "secureLogin.jsp");
-                request.getRequestDispatcher("jsp/Main.jsp").forward(request, response);
-
             }
+            response.setContentType("text/html;charset=UTF-8");
+            System.out.println("OK");
+            request.setAttribute("fragment", "secureLogin.jsp");
+            request.getRequestDispatcher("jsp/Main.jsp").forward(request, response);
+            //response.sendRedirect("index.jsp");
+        } else {
+            response.setContentType("text/html;charset=UTF-8");
+            request.setAttribute("fragment", "secureLogin.jsp");
+            HttpSession userSession = request.getSession(false);
+             if (userSession != null){ 
+                userSession.invalidate();
+            }
+            request.getRequestDispatcher("jsp/Main.jsp").forward(request, response);
 
         }
 
