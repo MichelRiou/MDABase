@@ -38,19 +38,20 @@
                                             Se souvenir de moi</span>
                                     </label>
                                 </div>
-                                <div><?php if (isset($messageErreur))
-                                echo ('<h5 class="text-warning text-center">' . $messageErreur . '</h5>');
-                              ?><div>
-                                        <button type="submit" class="btn btn-success btn-lg float-right" 
-                                                id="btnLogin" name='toto' >Login</button>
+                                <div>
+                                    
+                                        <c:if test="${!empty message}"><h5 class="text-warning text-center">${message}</h5></c:if>
+                                        <div>
+                                            <button type="submit" class="btn btn-success btn-lg float-right" 
+                                                    id="btnLogin" name='toto' >Login</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

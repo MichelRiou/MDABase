@@ -56,6 +56,6 @@ Contributor(s):
     <mapping resource="hibernate/entities/Seasons.hbm.xml"/>
     <mapping resource="hibernate/entities/Models.hbm.xml"/>
     <mapping resource="hibernate/entities/Users.hbm.xml"/>
-    <mapping class="" file="" jar="" package="" resource="hibernate/entities/Roles.hbm.xml"/>
+    <mapping resource="hibernate/entities/Roles.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

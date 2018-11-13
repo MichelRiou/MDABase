@@ -1,21 +1,24 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 8 nov. 2018 10:45:50 by Hibernate Tools 4.3.1 -->
+<!-- Generated 13 nov. 2018 17:17:42 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="hibernate.entities.Roles" table="roles" catalog="flyinpizzas_mdabase" optimistic-lock="version">
         <id name="roleId" type="java.lang.Integer">
             <column name="role_id" />
-            <generator class="foreign">
-                <param name="property">users</param>
-            </generator>
+            <generator class="identity" />
         </id>
-        <one-to-one name="users" class="hibernate.entities.Users" constrained="true"></one-to-one>
         <property name="roleName" type="string">
-            <column name="role_name" length="25" not-null="true" />
+            <column name="role_name" length="25" not-null="true" unique="true" />
         </property>
         <property name="roleValue" type="byte">
             <column name="role_value" not-null="true" />
         </property>
+        <set name="userses" table="users" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_role" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.entities.Users" />
+        </set>
     </class>
 </hibernate-mapping>

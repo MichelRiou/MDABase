@@ -1,5 +1,6 @@
 package hibernate.daos;
 
+import hibernate.entities.Roles;
 import hibernate.entities.Users;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import org.hibernate.Transaction;
 import hibernate.util.BCrypt;
 // ----------------
 
-public class UsersDAO {
+public class RolesDAO {
 // ------------    
 // --- ATTRIBUTS    
 // ------------    
@@ -22,18 +23,18 @@ public class UsersDAO {
 // -----------    
 // ------------    
 
-    public UsersDAO(Session session) {
+    public RolesDAO(Session session) {
         sessionH = session;
     }
 // --- Renvoie la liste des pays    
 
-    public List<Users> getUsers() {
-        List<Users> userListe = null;
+    public List<Roles> getRoles() {
+        List<Roles> roleListe = null;
         Transaction tx = null;
         try {
             tx = sessionH.beginTransaction();
-            Query q = this.sessionH.createQuery("from Users ORDER BY userId");
-            userListe = q.list();
+            Query q = this.sessionH.createQuery("from Roles ORDER BY roleId");
+            roleListe = q.list();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -43,19 +44,19 @@ public class UsersDAO {
         } finally {
             sessionH.close();
         }
-        return userListe;
+        return roleListe;
     }
 /// getPays (Tous)    
 // --- Renvoie un pays    
 
-    public Users getUserById(int asID) {
-        Users user = null;
+    public Roles getRole(int asID) {
+        Roles role = null;
         Transaction tx = null;
         try {
             tx = sessionH.beginTransaction();
-            Query q = this.sessionH.createQuery("from Users WHERE userId=?");
+            Query q = this.sessionH.createQuery("from Roles WHERE roleId=?");
             q.setInteger(0, asID);
-            user = (Users) q.uniqueResult();
+            role = (Roles) q.uniqueResult();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -65,17 +66,17 @@ public class UsersDAO {
         } finally {
             sessionH.close();
         }
-        return user;
+        return role;
     }
 
-    public Users getUserByName(String asName) {
-        Users user = null;
+    public Roles getRole(String asName) {
+        Roles role = null;
         Transaction tx = null;
         try {
             tx = sessionH.beginTransaction();
-            Query q = this.sessionH.createQuery("from Users WHERE userName=?");
+            Query q = this.sessionH.createQuery("from Roles WHERE roleName=?");
             q.setString(0, asName);
-            user = (Users) q.uniqueResult();
+            role = (Roles) q.uniqueResult();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -85,24 +86,23 @@ public class UsersDAO {
         } finally {
             sessionH.close();
         }
-        return user;
+        return role;
     }
-/// getPays (Un)    
 // ----------------------------    
 
-    public String ins(Users user) {
+    public String ins(Roles role) {
         String result = "Done";
         Transaction tx = null;
         try {
             tx = sessionH.beginTransaction();
-            sessionH.save(user);
+            sessionH.save(role);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
             String msgSQL = e.getMessage() + e.getCause();
-            result = (msgSQL.contains("Duplicate entry") ? "Nom d'utilisateur déjà existant" : "Erreur d'insertion");
+            result = (msgSQL.contains("Duplicate entry") ? "Ce rôle existe déjà" : "Erreur d'insertion");
             e.printStackTrace();
         } finally {
             sessionH.close();
@@ -113,13 +113,13 @@ public class UsersDAO {
 /// ajouter    
 // ------------------------------    
 
-    public Boolean del(Users user) {
+    public Boolean del(Roles role) {
         Boolean OK = true;
         Transaction tx = null;
 
         try {
             tx = sessionH.beginTransaction();
-            sessionH.delete(user);
+            sessionH.delete(role);
             tx.commit();
 
         } catch (HibernateException e) {
@@ -137,12 +137,12 @@ public class UsersDAO {
 /// supprimer    
 // ------------------    
 
-    public Boolean upd(Users user) {
+    public Boolean upd(Roles role) {
         Boolean OK = true;
         Transaction tx = null;
         try {
             tx = sessionH.beginTransaction();
-            sessionH.update(user);
+            sessionH.update(role);
             tx.commit();
 
         } catch (HibernateException e) {
@@ -161,59 +161,13 @@ public class UsersDAO {
 // ------------------------    
 
     public List getAttributsBean(Object objet) {
-        Users user = (Users) objet;
+        Roles role = (Roles) objet;
         List listeColonnes = new ArrayList();
-        Field[] tProprietes = user.getClass().getDeclaredFields();
+        Field[] tProprietes = role.getClass().getDeclaredFields();
         for (int i = 0; i < tProprietes.length; i++) {
             listeColonnes.add(tProprietes[i].getName());
         }
         return listeColonnes;
-    } /// getAttributsBean 
-
-    public Users checkUser(String name, String plainText) {
-        String cipheredText = null;
-        boolean OK =true;
-        Users user = this.getUserByName(name);
-        if (user != null) {
-            System.out.println("DAO trouve le nom");
-            cipheredText = user.getUserPassword();
-           if (!BCrypt.checkpw(plainText,cipheredText)) 
-           // if (!plainText.equals(cipheredText))
-            {
-                user = null;
-                OK=false;
-                System.out.println("DAO trouve pas le password");
-                System.out.println("DAO plaintext" + plainText);
-                System.out.println("DAO cipheredtxt" + cipheredText);
-            }else{
-                System.out.println("DAO trouve le password !!!!!!");
-                 System.out.println("DAO plaintext" + plainText);
-                System.out.println("DAO cipheredtxt" + cipheredText);
-            }
-
-        }
-         if (user != null) {
-        System.out.println("Nom        :" + user.getUserName());
-        System.out.println("MDP :>>" + plainText + "<<");
-        System.out.println("OK :" + OK);
-        System.out.println("PWD DB              >>" + user.getUserPassword() + "<<");
-        System.out.println("PWD DB string       >>" + cipheredText + "<<");
-        System.out.println("PWD DB  string trim >>" + cipheredText.trim() + "<<");
-        System.out.println("PWD envoyé          >>" + BCrypt.hashpw(plainText, BCrypt.gensalt(12)) + "<<");
-        System.out.println("===============================");
-        String hashed = BCrypt.hashpw(plainText, BCrypt.gensalt(12));
-        if (BCrypt.checkpw(plainText, hashed)) {
-            System.out.println("C'est OK");
-        } else {
-            System.out.println("C'est pas encore OK");
-        }
-         }
-        return user;
-    } /// getAttributsBean 
-} /// class PaysDAO
-/*   public void setUserPassword(String userPassword) {
-        this.userPassword = BCrypt.hashpw(userPassword, BCrypt.gensalt(12));
-    }
+    } 
     
-if (BCrypt.checkpw(candidate, hashed))
- */
+} 

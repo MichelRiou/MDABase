@@ -111,7 +111,8 @@
                         <c:choose> 
                             <c:when test="${!empty sessionScope.user}">
                                 <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-                                ${sessionScope.user.userName}
+                                ${sessionScope.user.userName}&nbsp;&nbsp;&nbsp;${sessionScope.user.roles}
+                                 
                             </c:when>
                             <c:otherwise>Non connecté</c:otherwise></c:choose></a>
                         </li>
@@ -129,7 +130,7 @@
                 <div>
 
             <jsp:include page="${fragment}" flush="true" />
-            ${message}
+          
         </div>
     </body>
 </html>
