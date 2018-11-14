@@ -111,7 +111,12 @@
                         <c:choose> 
                             <c:when test="${!empty sessionScope.user}">
                                 <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-                                ${sessionScope.user.userName}&nbsp;&nbsp;&nbsp;${sessionScope.user.roles}
+                                ${sessionScope.user.userName}
+                                ${sessionScope.user.userPassword}
+                                ${sessionScope.user.getUserName()}
+                                <% Roles role="${sessionScope.user.roles"} ;%>
+                                <c:set 
+                            
                                  
                             </c:when>
                             <c:otherwise>Non connecté</c:otherwise></c:choose></a>
