@@ -3,6 +3,8 @@
     Created on : 13 oct. 2018, 23:54:32
     Author     : Michel
 --%>
+<%@page import="hibernate.entities.Roles"%>
+<%@page import="hibernate.entities.Users"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -113,11 +115,20 @@
                                 <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
                                 ${sessionScope.user.userName}
                                 ${sessionScope.user.userPassword}
-                                ${sessionScope.user.getUserName()}
-                                <% Roles role="${sessionScope.user.roles"} ;%>
-                                <c:set 
-                            
-                                 
+                               
+                                <%
+                                    Users u = (Users) request.getAttribute("user");
+                                    Users u2 = (Users) session.getAttribute("user");
+                                    if (u2!=null){
+                                        out.print("useu:" + u2);
+                                       // out.print(u2.getRoles().getRoleName());
+                                    Roles r = (Roles) u2.getRoles();
+                                    out.print("role:" + r);
+                                        //out.print((String) r.getRoleName());
+                                    }else{
+                                    out.print("null");
+                                    }
+                                %>
                             </c:when>
                             <c:otherwise>Non connecté</c:otherwise></c:choose></a>
                         </li>

@@ -92,6 +92,8 @@ public class RouteDispatcher extends HttpServlet {
             }
 
             request.getRequestDispatcher(lsURL).forward(request, response);
+            // Pas de relative path??
+            // this.getServletContext().getRequestDispatcher( "/WEB-INF/test.jsp" ).forward( request, response );
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
