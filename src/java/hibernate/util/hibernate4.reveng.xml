@@ -41,6 +41,12 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="flyinpizzas_mdabase"/>
-  <table-filter match-name="roles"/>
-  <table-filter match-name="users"/>
+  <table-filter match-name="colors"/>
+  <table-filter match-name="articles"/>
+  <table-filter match-name="weborder_lines"/>
+  <table-filter match-name="models"/>
+  <table-filter match-name="seasons"/>
+  <table-filter match-name="countries"/>
+  <table-filter match-name="grid_size"/>
+  <table-filter match-name="weborders"/>
 </hibernate-reverse-engineering>

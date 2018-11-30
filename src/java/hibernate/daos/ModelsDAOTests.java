@@ -44,7 +44,7 @@ public class ModelsDAOTests {
         Seasons season = new Seasons();
         season.setSeasonId(1);
         
-        Models model = new Models(gridSize, season, "53145882","test 2");
+        Models model = new Models(gridSize, season, "53999999","test 4");
         
 // 
 

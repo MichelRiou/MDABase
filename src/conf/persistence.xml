@@ -15,6 +15,9 @@
     <class>hibernate.entities.Seasons_1</class>
     <class>hibernate.entities.Users</class>
     <class>hibernate.entities.Roles</class>
+    <class>hibernate.entities.Weborders</class>
+    <class>hibernate.entities.Countries</class>
+    <class>hibernate.entities.WeborderLines</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://mysql-flyinpizzas.alwaysdata.net:3306/flyinpizzas_mdabase?zeroDateTimeBehavior=convertToNull"/>
