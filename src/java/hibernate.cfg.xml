@@ -57,7 +57,6 @@ Contributor(s):
     <mapping resource="hibernate/entities/Models.hbm.xml"/>
     <mapping resource="hibernate/entities/Users.hbm.xml"/>
     <mapping resource="hibernate/entities/Roles.hbm.xml"/>
-    <mapping resource="hibernate/entities/Countries.hbm.xml"/>
-    <mapping/>
+    <mapping resource="hibernate/entities/WebOrders.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

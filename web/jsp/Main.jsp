@@ -123,7 +123,7 @@
                                         out.print("useu:" + u2);
                                        // out.print(u2.getRoles().getRoleName());
                                     Roles r = (Roles) u2.getRoles();
-                                    out.print("role:" + r);
+                                    //out.print("role:" + r);
                                         //out.print((String) r.getRoleName());
                                     }else{
                                     out.print("null");
