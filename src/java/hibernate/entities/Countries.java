@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Michel
  */
 @Entity
-@Table(name = "countries")
+@Table(name = "countries", catalog = "flyinpizzas_mdabase", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Countries.findAll", query = "SELECT c FROM Countries c")
@@ -33,18 +35,19 @@ public class Countries implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "country_id")
+    @Column(name = "country_id", nullable = false)
     private Integer countryId;
     @Basic(optional = false)
-    @Column(name = "country_name")
+    @Column(name = "country_name", nullable = false, length = 50)
     private String countryName;
     @Basic(optional = false)
-    @Column(name = "country_code")
+    @Column(name = "country_code", nullable = false, length = 2)
     private String countryCode;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @Column(name = "country_tax")
+    @Column(name = "country_tax", nullable = false, precision = 4, scale = 2)
     private BigDecimal countryTax;
 
     public Countries() {

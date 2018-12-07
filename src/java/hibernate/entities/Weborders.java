@@ -6,12 +6,13 @@
 package hibernate.entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -58,11 +59,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Weborders.findByWeborderShippingAd1", query = "SELECT w FROM Weborders w WHERE w.weborderShippingAd1 = :weborderShippingAd1")
     , @NamedQuery(name = "Weborders.findByWeborderShippingAd2", query = "SELECT w FROM Weborders w WHERE w.weborderShippingAd2 = :weborderShippingAd2")
     , @NamedQuery(name = "Weborders.findByWeborderShippingCity", query = "SELECT w FROM Weborders w WHERE w.weborderShippingCity = :weborderShippingCity")
+    , @NamedQuery(name = "Weborders.findByWeborderShippingZip", query = "SELECT w FROM Weborders w WHERE w.weborderShippingZip = :weborderShippingZip")
     , @NamedQuery(name = "Weborders.findByWeborderShippingProvince", query = "SELECT w FROM Weborders w WHERE w.weborderShippingProvince = :weborderShippingProvince")})
 public class Weborders implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "weborder_id")
     private Integer weborderId;
@@ -85,25 +88,24 @@ public class Weborders implements Serializable {
     @Basic(optional = false)
     @Column(name = "weborder_currency")
     private String weborderCurrency;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "weborder_subtotal")
-    private BigDecimal weborderSubtotal;
+    private float weborderSubtotal;
     @Basic(optional = false)
     @Column(name = "weborder_shipping")
-    private BigDecimal weborderShipping;
+    private float weborderShipping;
     @Basic(optional = false)
     @Column(name = "weborder_taxes")
-    private BigDecimal weborderTaxes;
+    private float weborderTaxes;
     @Basic(optional = false)
     @Column(name = "weborder_refunded")
-    private BigDecimal weborderRefunded;
+    private float weborderRefunded;
     @Basic(optional = false)
     @Column(name = "weborder_discount_code")
     private String weborderDiscountCode;
     @Basic(optional = false)
     @Column(name = "weborder_discount")
-    private BigDecimal weborderDiscount;
+    private float weborderDiscount;
     @Basic(optional = false)
     @Column(name = "weborder_shipping_method")
     private String weborderShippingMethod;
@@ -145,6 +147,9 @@ public class Weborders implements Serializable {
     @Column(name = "weborder_shipping_city")
     private String weborderShippingCity;
     @Basic(optional = false)
+    @Column(name = "weborder_shipping_zip")
+    private String weborderShippingZip;
+    @Basic(optional = false)
     @Column(name = "weborder_shipping_province")
     private String weborderShippingProvince;
     @JoinColumn(name = "weborder_billing_country_id", referencedColumnName = "country_id")
@@ -163,7 +168,9 @@ public class Weborders implements Serializable {
         this.weborderId = weborderId;
     }
 
-    public Weborders(Integer weborderId, String weborderNum, String weborderEmail, Date weborderDate, String weborderCreated, short weborderStatus, String weborderCurrency, BigDecimal weborderSubtotal, BigDecimal weborderShipping, BigDecimal weborderTaxes, BigDecimal weborderRefunded, String weborderDiscountCode, BigDecimal weborderDiscount, String weborderShippingMethod, Date weborderShippingDate, String weborderBillingName, String weborderBillingAd1, String weborderBillingAd2, String weborderBillingCity, String weborderBillingZip, String weborderBillingProvince, String weborderBillingPhone, String weborderShippingName, String weborderShippingAd1, String weborderShippingAd2, String weborderShippingCity, String weborderShippingProvince) {
+    public Weborders(Integer weborderId, String weborderNum, String weborderEmail, Date weborderDate, String weborderCreated, short weborderStatus, String weborderCurrency, float weborderSubtotal, float weborderShipping, float weborderTaxes, float weborderRefunded, String weborderDiscountCode, float weborderDiscount, String weborderShippingMethod, Date weborderShippingDate, 
+            String weborderBillingName, String weborderBillingAd1, String weborderBillingAd2, String weborderBillingCity, String weborderBillingZip, String weborderBillingProvince, Countries weborderBillingCountryId,String weborderBillingPhone, 
+            String weborderShippingName, String weborderShippingAd1, String weborderShippingAd2, String weborderShippingCity, String weborderShippingZip, String weborderShippingProvince, Countries weborderShippingCountryId) {
         this.weborderId = weborderId;
         this.weborderNum = weborderNum;
         this.weborderEmail = weborderEmail;
@@ -185,12 +192,15 @@ public class Weborders implements Serializable {
         this.weborderBillingCity = weborderBillingCity;
         this.weborderBillingZip = weborderBillingZip;
         this.weborderBillingProvince = weborderBillingProvince;
+        this.weborderBillingCountryId = weborderBillingCountryId;
         this.weborderBillingPhone = weborderBillingPhone;
         this.weborderShippingName = weborderShippingName;
         this.weborderShippingAd1 = weborderShippingAd1;
         this.weborderShippingAd2 = weborderShippingAd2;
         this.weborderShippingCity = weborderShippingCity;
+        this.weborderShippingZip = weborderShippingZip;
         this.weborderShippingProvince = weborderShippingProvince;
+        this.weborderShippingCountryId = weborderShippingCountryId;
     }
 
     public Integer getWeborderId() {
@@ -249,35 +259,35 @@ public class Weborders implements Serializable {
         this.weborderCurrency = weborderCurrency;
     }
 
-    public BigDecimal getWeborderSubtotal() {
+    public float getWeborderSubtotal() {
         return weborderSubtotal;
     }
 
-    public void setWeborderSubtotal(BigDecimal weborderSubtotal) {
+    public void setWeborderSubtotal(float weborderSubtotal) {
         this.weborderSubtotal = weborderSubtotal;
     }
 
-    public BigDecimal getWeborderShipping() {
+    public float getWeborderShipping() {
         return weborderShipping;
     }
 
-    public void setWeborderShipping(BigDecimal weborderShipping) {
+    public void setWeborderShipping(float weborderShipping) {
         this.weborderShipping = weborderShipping;
     }
 
-    public BigDecimal getWeborderTaxes() {
+    public float getWeborderTaxes() {
         return weborderTaxes;
     }
 
-    public void setWeborderTaxes(BigDecimal weborderTaxes) {
+    public void setWeborderTaxes(float weborderTaxes) {
         this.weborderTaxes = weborderTaxes;
     }
 
-    public BigDecimal getWeborderRefunded() {
+    public float getWeborderRefunded() {
         return weborderRefunded;
     }
 
-    public void setWeborderRefunded(BigDecimal weborderRefunded) {
+    public void setWeborderRefunded(float weborderRefunded) {
         this.weborderRefunded = weborderRefunded;
     }
 
@@ -289,11 +299,11 @@ public class Weborders implements Serializable {
         this.weborderDiscountCode = weborderDiscountCode;
     }
 
-    public BigDecimal getWeborderDiscount() {
+    public float getWeborderDiscount() {
         return weborderDiscount;
     }
 
-    public void setWeborderDiscount(BigDecimal weborderDiscount) {
+    public void setWeborderDiscount(float weborderDiscount) {
         this.weborderDiscount = weborderDiscount;
     }
 
@@ -399,6 +409,14 @@ public class Weborders implements Serializable {
 
     public void setWeborderShippingCity(String weborderShippingCity) {
         this.weborderShippingCity = weborderShippingCity;
+    }
+
+    public String getWeborderShippingZip() {
+        return weborderShippingZip;
+    }
+
+    public void setWeborderShippingZip(String weborderShippingZip) {
+        this.weborderShippingZip = weborderShippingZip;
     }
 
     public String getWeborderShippingProvince() {

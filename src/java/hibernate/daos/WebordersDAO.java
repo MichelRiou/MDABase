@@ -1,6 +1,5 @@
 package hibernate.daos;
 
-import hibernate.entities.Users;
 import hibernate.entities.Weborders;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -9,8 +8,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import hibernate.util.BCrypt;
-// ----------------
 
 public class WebordersDAO {
 // ------------    
@@ -29,12 +26,12 @@ public class WebordersDAO {
 // --- Renvoie la liste des pays    
 
     public List<Weborders> getWeborders() {
-        List<Weborders> webOrdersListe = null;
+        List<Weborders> webordersListe = null;
         Transaction tx = null;
         try {
             tx = sessionH.beginTransaction();
             Query q = this.sessionH.createQuery("from Weborders ORDER BY weborderId");
-            webOrdersListe = q.list();
+            webordersListe = q.list();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -44,19 +41,19 @@ public class WebordersDAO {
         } finally {
             sessionH.close();
         }
-        return webOrdersListe;
+        return webordersListe;
     }
 /// getPays (Tous)    
 // --- Renvoie un pays    
 
-    public Users getUserById(int asID) {
-        Users user = null;
+    public Weborders getWebordersById(int asID) {
+        Weborders weborder = null;
         Transaction tx = null;
         try {
             tx = sessionH.beginTransaction();
-            Query q = this.sessionH.createQuery("from Users WHERE userId=?");
+            Query q = this.sessionH.createQuery("from Weborders WHERE weborderId=?");
             q.setInteger(0, asID);
-            user = (Users) q.uniqueResult();
+            weborder = (Weborders) q.uniqueResult();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -66,17 +63,17 @@ public class WebordersDAO {
         } finally {
             sessionH.close();
         }
-        return user;
+        return weborder;
     }
 
-    public Users getUserByName(String asName) {
-        Users user = null;
+    public Weborders getWebordersByNum(String asNum) {
+        Weborders weborder = null;
         Transaction tx = null;
         try {
             tx = sessionH.beginTransaction();
-            Query q = this.sessionH.createQuery("from Users WHERE userName=?");
-            q.setString(0, asName);
-            user = (Users) q.uniqueResult();
+            Query q = this.sessionH.createQuery("from Weborders WHERE weborderNum=?");
+            q.setString(0, asNum);
+            weborder = (Weborders) q.uniqueResult();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -86,25 +83,25 @@ public class WebordersDAO {
         } finally {
             sessionH.close();
         }
-        return user;
+        return weborder;
     }
 /// getPays (Un)    
 // ----------------------------    
 
-    public String ins(Users user) {
+    public String ins(Weborders weborder) {
         String result = "Done";
         Transaction tx = null;
         try {
             tx = sessionH.beginTransaction();
-            sessionH.save(user);
+            sessionH.save(weborder);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
             String msgSQL = e.getMessage() + e.getCause();
-            result = (msgSQL.contains("Duplicate entry") ? "Nom d'utilisateur déjà existant" : "Erreur d'insertion");
-            e.printStackTrace();
+            result = (msgSQL.contains("Duplicate entry") ? "Commande déjà existant" : "Erreur d'insertion");
+            //e.printStackTrace();
         } finally {
             sessionH.close();
         }
@@ -114,13 +111,13 @@ public class WebordersDAO {
 /// ajouter    
 // ------------------------------    
 
-    public Boolean del(Users user) {
+    public Boolean del(Weborders weborder) {
         Boolean OK = true;
         Transaction tx = null;
 
         try {
             tx = sessionH.beginTransaction();
-            sessionH.delete(user);
+            sessionH.delete(weborder);
             tx.commit();
 
         } catch (HibernateException e) {
@@ -138,12 +135,12 @@ public class WebordersDAO {
 /// supprimer    
 // ------------------    
 
-    public Boolean upd(Users user) {
+    public Boolean upd(Weborders weborder) {
         Boolean OK = true;
         Transaction tx = null;
         try {
             tx = sessionH.beginTransaction();
-            sessionH.update(user);
+            sessionH.update(weborder);
             tx.commit();
 
         } catch (HibernateException e) {
@@ -162,55 +159,16 @@ public class WebordersDAO {
 // ------------------------    
 
     public List getAttributsBean(Object objet) {
-        Users user = (Users) objet;
+        Weborders weborder = (Weborders) objet;
         List listeColonnes = new ArrayList();
-        Field[] tProprietes = user.getClass().getDeclaredFields();
+        Field[] tProprietes = weborder.getClass().getDeclaredFields();
         for (int i = 0; i < tProprietes.length; i++) {
             listeColonnes.add(tProprietes[i].getName());
         }
         return listeColonnes;
     } /// getAttributsBean 
 
-    public Users checkUser(String name, String plainText) {
-        String cipheredText = null;
-        boolean OK =true;
-        Users user = this.getUserByName(name);
-        if (user != null) {
-            System.out.println("DAO trouve le nom");
-            cipheredText = user.getUserPassword();
-           if (!BCrypt.checkpw(plainText,cipheredText)) 
-           // if (!plainText.equals(cipheredText))
-            {
-                user = null;
-                OK=false;
-                System.out.println("DAO trouve pas le password");
-                System.out.println("DAO plaintext" + plainText);
-                System.out.println("DAO cipheredtxt" + cipheredText);
-            }else{
-                System.out.println("DAO trouve le password !!!!!!");
-                 System.out.println("DAO plaintext" + plainText);
-                System.out.println("DAO cipheredtxt" + cipheredText);
-            }
-
-        }
-         if (user != null) {
-        System.out.println("Nom        :" + user.getUserName());
-        System.out.println("MDP :>>" + plainText + "<<");
-        System.out.println("OK :" + OK);
-        System.out.println("PWD DB              >>" + user.getUserPassword() + "<<");
-        System.out.println("PWD DB string       >>" + cipheredText + "<<");
-        System.out.println("PWD DB  string trim >>" + cipheredText.trim() + "<<");
-        System.out.println("PWD envoyé          >>" + BCrypt.hashpw(plainText, BCrypt.gensalt(12)) + "<<");
-        System.out.println("===============================");
-        String hashed = BCrypt.hashpw(plainText, BCrypt.gensalt(12));
-        if (BCrypt.checkpw(plainText, hashed)) {
-            System.out.println("C'est OK");
-        } else {
-            System.out.println("C'est pas encore OK");
-        }
-         }
-        return user;
-    } /// getAttributsBean 
+ /// getAttributsBean 
 } /// class PaysDAO
 /*   public void setUserPassword(String userPassword) {
         this.userPassword = BCrypt.hashpw(userPassword, BCrypt.gensalt(12));
