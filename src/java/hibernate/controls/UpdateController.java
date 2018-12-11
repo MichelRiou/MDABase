@@ -50,6 +50,7 @@ public class UpdateController extends HttpServlet {
 
                 case "deleteGridSize":
                  Integer id = Integer.parseInt(request.getParameter("id"));
+                    System.out.println("id " + id);
                     GridSizeDAO deleteGridSizeDAO = new GridSizeDAO(session);
                     GridSize deleteGridSize = new GridSize();
                     deleteGridSize.setGridSizeId(id);

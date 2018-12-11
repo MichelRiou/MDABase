@@ -6,6 +6,7 @@
 package hibernate.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -18,23 +19,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Michel
  */
 @Entity
-@Table(name = "weborders")
+@Table(name = "weborders", catalog = "flyinpizzas_mdabase", schema = "", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"weborder_code"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Weborders.findAll", query = "SELECT w FROM Weborders w")
     , @NamedQuery(name = "Weborders.findByWeborderId", query = "SELECT w FROM Weborders w WHERE w.weborderId = :weborderId")
-    , @NamedQuery(name = "Weborders.findByWeborderNum", query = "SELECT w FROM Weborders w WHERE w.weborderNum = :weborderNum")
+    , @NamedQuery(name = "Weborders.findByWeborderCode", query = "SELECT w FROM Weborders w WHERE w.weborderCode = :weborderCode")
     , @NamedQuery(name = "Weborders.findByWeborderEmail", query = "SELECT w FROM Weborders w WHERE w.weborderEmail = :weborderEmail")
     , @NamedQuery(name = "Weborders.findByWeborderDate", query = "SELECT w FROM Weborders w WHERE w.weborderDate = :weborderDate")
     , @NamedQuery(name = "Weborders.findByWeborderCreated", query = "SELECT w FROM Weborders w WHERE w.weborderCreated = :weborderCreated")
@@ -67,99 +71,99 @@ public class Weborders implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "weborder_id")
+    @Column(name = "weborder_id", nullable = false)
     private Integer weborderId;
     @Basic(optional = false)
-    @Column(name = "weborder_num")
-    private String weborderNum;
+    @Column(name = "weborder_code", nullable = false, length = 5)
+    private String weborderCode;
     @Basic(optional = false)
-    @Column(name = "weborder_email")
+    @Column(name = "weborder_email", nullable = false, length = 50)
     private String weborderEmail;
     @Basic(optional = false)
-    @Column(name = "weborder_date")
+    @Column(name = "weborder_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date weborderDate;
     @Basic(optional = false)
-    @Column(name = "weborder_created")
+    @Column(name = "weborder_created", nullable = false, length = 25)
     private String weborderCreated;
     @Basic(optional = false)
-    @Column(name = "weborder_status")
+    @Column(name = "weborder_status", nullable = false)
     private short weborderStatus;
     @Basic(optional = false)
-    @Column(name = "weborder_currency")
+    @Column(name = "weborder_currency", nullable = false, length = 3)
     private String weborderCurrency;
     @Basic(optional = false)
-    @Column(name = "weborder_subtotal")
+    @Column(name = "weborder_subtotal", nullable = false)
     private float weborderSubtotal;
     @Basic(optional = false)
-    @Column(name = "weborder_shipping")
+    @Column(name = "weborder_shipping", nullable = false)
     private float weborderShipping;
     @Basic(optional = false)
-    @Column(name = "weborder_taxes")
+    @Column(name = "weborder_taxes", nullable = false)
     private float weborderTaxes;
     @Basic(optional = false)
-    @Column(name = "weborder_refunded")
+    @Column(name = "weborder_refunded", nullable = false)
     private float weborderRefunded;
     @Basic(optional = false)
-    @Column(name = "weborder_discount_code")
+    @Column(name = "weborder_discount_code", nullable = false, length = 15)
     private String weborderDiscountCode;
     @Basic(optional = false)
-    @Column(name = "weborder_discount")
+    @Column(name = "weborder_discount", nullable = false)
     private float weborderDiscount;
     @Basic(optional = false)
-    @Column(name = "weborder_shipping_method")
+    @Column(name = "weborder_shipping_method", nullable = false, length = 50)
     private String weborderShippingMethod;
     @Basic(optional = false)
-    @Column(name = "weborder_shipping_date")
+    @Column(name = "weborder_shipping_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date weborderShippingDate;
     @Basic(optional = false)
-    @Column(name = "weborder_billing_name")
+    @Column(name = "weborder_billing_name", nullable = false, length = 100)
     private String weborderBillingName;
     @Basic(optional = false)
-    @Column(name = "weborder_billing_ad1")
+    @Column(name = "weborder_billing_ad1", nullable = false, length = 100)
     private String weborderBillingAd1;
     @Basic(optional = false)
-    @Column(name = "weborder_billing_ad2")
+    @Column(name = "weborder_billing_ad2", nullable = false, length = 100)
     private String weborderBillingAd2;
     @Basic(optional = false)
-    @Column(name = "weborder_billing_city")
+    @Column(name = "weborder_billing_city", nullable = false, length = 100)
     private String weborderBillingCity;
     @Basic(optional = false)
-    @Column(name = "weborder_billing_zip")
+    @Column(name = "weborder_billing_zip", nullable = false, length = 20)
     private String weborderBillingZip;
     @Basic(optional = false)
-    @Column(name = "weborder_billing_province")
+    @Column(name = "weborder_billing_province", nullable = false, length = 100)
     private String weborderBillingProvince;
     @Basic(optional = false)
-    @Column(name = "weborder_billing_phone")
+    @Column(name = "weborder_billing_phone", nullable = false, length = 20)
     private String weborderBillingPhone;
     @Basic(optional = false)
-    @Column(name = "weborder_shipping_name")
+    @Column(name = "weborder_shipping_name", nullable = false, length = 100)
     private String weborderShippingName;
     @Basic(optional = false)
-    @Column(name = "weborder_shipping_ad1")
+    @Column(name = "weborder_shipping_ad1", nullable = false, length = 100)
     private String weborderShippingAd1;
     @Basic(optional = false)
-    @Column(name = "weborder_shipping_ad2")
+    @Column(name = "weborder_shipping_ad2", nullable = false, length = 100)
     private String weborderShippingAd2;
     @Basic(optional = false)
-    @Column(name = "weborder_shipping_city")
+    @Column(name = "weborder_shipping_city", nullable = false, length = 100)
     private String weborderShippingCity;
     @Basic(optional = false)
-    @Column(name = "weborder_shipping_zip")
+    @Column(name = "weborder_shipping_zip", nullable = false, length = 20)
     private String weborderShippingZip;
     @Basic(optional = false)
-    @Column(name = "weborder_shipping_province")
+    @Column(name = "weborder_shipping_province", nullable = false, length = 100)
     private String weborderShippingProvince;
-    @JoinColumn(name = "weborder_billing_country_id", referencedColumnName = "country_id")
+    @JoinColumn(name = "weborder_billing_country_id", referencedColumnName = "country_id", nullable = false)
     @ManyToOne(optional = false)
     private Countries weborderBillingCountryId;
-    @JoinColumn(name = "weborder_shipping_country_id", referencedColumnName = "country_id")
-    @OneToOne(optional = false)
+    @JoinColumn(name = "weborder_shipping_country_id", referencedColumnName = "country_id", nullable = false)
+    @ManyToOne(optional = false)
     private Countries weborderShippingCountryId;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "weborderLinesNum")
-    private WeborderLines weborderLines;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "weborderLinesCode")
+    private Collection<WeborderLines> weborderLinesCollection;
 
     public Weborders() {
     }
@@ -168,11 +172,9 @@ public class Weborders implements Serializable {
         this.weborderId = weborderId;
     }
 
-    public Weborders(Integer weborderId, String weborderNum, String weborderEmail, Date weborderDate, String weborderCreated, short weborderStatus, String weborderCurrency, float weborderSubtotal, float weborderShipping, float weborderTaxes, float weborderRefunded, String weborderDiscountCode, float weborderDiscount, String weborderShippingMethod, Date weborderShippingDate, 
-            String weborderBillingName, String weborderBillingAd1, String weborderBillingAd2, String weborderBillingCity, String weborderBillingZip, String weborderBillingProvince, Countries weborderBillingCountryId,String weborderBillingPhone, 
-            String weborderShippingName, String weborderShippingAd1, String weborderShippingAd2, String weborderShippingCity, String weborderShippingZip, String weborderShippingProvince, Countries weborderShippingCountryId) {
+    public Weborders(Integer weborderId, String weborderCode, String weborderEmail, Date weborderDate, String weborderCreated, short weborderStatus, String weborderCurrency, float weborderSubtotal, float weborderShipping, float weborderTaxes, float weborderRefunded, String weborderDiscountCode, float weborderDiscount, String weborderShippingMethod, Date weborderShippingDate, String weborderBillingName, String weborderBillingAd1, String weborderBillingAd2, String weborderBillingCity, String weborderBillingZip, String weborderBillingProvince, Countries weborderBillingCountryId, String weborderBillingPhone, String weborderShippingName, String weborderShippingAd1, String weborderShippingAd2, String weborderShippingCity, String weborderShippingZip, String weborderShippingProvince, Countries weborderShippingCountryId) {
         this.weborderId = weborderId;
-        this.weborderNum = weborderNum;
+        this.weborderCode = weborderCode;
         this.weborderEmail = weborderEmail;
         this.weborderDate = weborderDate;
         this.weborderCreated = weborderCreated;
@@ -211,12 +213,12 @@ public class Weborders implements Serializable {
         this.weborderId = weborderId;
     }
 
-    public String getWeborderNum() {
-        return weborderNum;
+    public String getWeborderCode() {
+        return weborderCode;
     }
 
-    public void setWeborderNum(String weborderNum) {
-        this.weborderNum = weborderNum;
+    public void setWeborderCode(String weborderCode) {
+        this.weborderCode = weborderCode;
     }
 
     public String getWeborderEmail() {
@@ -443,12 +445,13 @@ public class Weborders implements Serializable {
         this.weborderShippingCountryId = weborderShippingCountryId;
     }
 
-    public WeborderLines getWeborderLines() {
-        return weborderLines;
+    @XmlTransient
+    public Collection<WeborderLines> getWeborderLinesCollection() {
+        return weborderLinesCollection;
     }
 
-    public void setWeborderLines(WeborderLines weborderLines) {
-        this.weborderLines = weborderLines;
+    public void setWeborderLinesCollection(Collection<WeborderLines> weborderLinesCollection) {
+        this.weborderLinesCollection = weborderLinesCollection;
     }
 
     @Override

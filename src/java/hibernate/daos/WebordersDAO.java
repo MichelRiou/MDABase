@@ -66,13 +66,13 @@ public class WebordersDAO {
         return weborder;
     }
 
-    public Weborders getWebordersByNum(String asNum) {
+    public Weborders getWebordersByCode(String asCode) {
         Weborders weborder = null;
         Transaction tx = null;
         try {
             tx = sessionH.beginTransaction();
-            Query q = this.sessionH.createQuery("from Weborders WHERE weborderNum=?");
-            q.setString(0, asNum);
+            Query q = this.sessionH.createQuery("from Weborders WHERE weborderCode=?");
+            q.setString(0, asCode);
             weborder = (Weborders) q.uniqueResult();
             tx.commit();
         } catch (HibernateException e) {
@@ -136,6 +136,29 @@ public class WebordersDAO {
 // ------------------    
 
     public Boolean upd(Weborders weborder) {
+        Boolean OK = true;
+        Transaction tx = null;
+        try {
+            tx = sessionH.beginTransaction();
+            sessionH.update(weborder);
+            tx.commit();
+
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            OK = false;
+
+        } finally {
+            sessionH.close();
+        }
+        return OK;
+    }
+/// modifier    
+// ------------------------    
+    
+     public Boolean importWebOrders(Weborders weborder) {
         Boolean OK = true;
         Transaction tx = null;
         try {

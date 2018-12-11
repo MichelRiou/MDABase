@@ -7,7 +7,9 @@ package hibernate.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,15 +17,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Michel
  */
 @Entity
-@Table(name = "countries", catalog = "flyinpizzas_mdabase", schema = "")
+@Table(name = "countries", catalog = "flyinpizzas_mdabase", schema = "", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"country_code"})
+    , @UniqueConstraint(columnNames = {"country_name"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Countries.findAll", query = "SELECT c FROM Countries c")
@@ -49,6 +56,10 @@ public class Countries implements Serializable {
     @Basic(optional = false)
     @Column(name = "country_tax", nullable = false, precision = 4, scale = 2)
     private BigDecimal countryTax;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "weborderBillingCountryId")
+    private Collection<Weborders> webordersCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "weborderShippingCountryId")
+    private Collection<Weborders> webordersCollection1;
 
     public Countries() {
     }
@@ -94,6 +105,24 @@ public class Countries implements Serializable {
 
     public void setCountryTax(BigDecimal countryTax) {
         this.countryTax = countryTax;
+    }
+
+    @XmlTransient
+    public Collection<Weborders> getWebordersCollection() {
+        return webordersCollection;
+    }
+
+    public void setWebordersCollection(Collection<Weborders> webordersCollection) {
+        this.webordersCollection = webordersCollection;
+    }
+
+    @XmlTransient
+    public Collection<Weborders> getWebordersCollection1() {
+        return webordersCollection1;
+    }
+
+    public void setWebordersCollection1(Collection<Weborders> webordersCollection1) {
+        this.webordersCollection1 = webordersCollection1;
     }
 
     @Override

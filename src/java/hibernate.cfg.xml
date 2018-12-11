@@ -47,18 +47,18 @@ Contributor(s):
     <property name="hibernate.connection.username">155227</property>
     <property name="hibernate.connection.password">samovar77</property>
     <property name="hibernate.show_sql">true</property>
-    <mapping resource="hibernate/entities/Colors.hbm.xml"/>
-    <mapping resource="hibernate/entities/GridSize.hbm.xml"/>
-    <mapping resource="hibernate/entities/Articles.hbm.xml"/>
-    <mapping resource="hibernate/entities/Places.hbm.xml"/>
-    <mapping resource="hibernate/entities/Stocks.hbm.xml"/>
-    <mapping resource="hibernate/entities/CodeColors.hbm.xml"/>
-    <mapping resource="hibernate/entities/Seasons.hbm.xml"/>
-    <mapping resource="hibernate/entities/Models.hbm.xml"/>
-    <mapping resource="hibernate/entities/Users.hbm.xml"/>
-    <mapping resource="hibernate/entities/Roles.hbm.xml"/>
-    <mapping class="hibernate.entities.Weborders" />
-	<mapping class="hibernate.entities.Countries" />
-	<mapping class="hibernate.entities.WeborderLines" />
+    <mapping class="hibernate.entities.Colors"/>
+    <mapping class="hibernate.entities.GridSize"/>
+    <mapping class="hibernate.entities.Articles"/>
+    <mapping class="hibernate.entities.Places"/>
+    <mapping class="hibernate.entities.Stocks"/>
+    <mapping class="hibernate.entities.CodeColors"/>
+    <mapping class="hibernate.entities.Seasons"/>
+    <mapping class="hibernate.entities.Models"/>
+    <mapping class="hibernate.entities.Users"/>
+    <mapping class="hibernate.entities.Roles"/>
+    <mapping class="hibernate.entities.Weborders"/>
+    <mapping class="hibernate.entities.Countries"/>
+    <mapping class="hibernate.entities.WeborderLines"/>
   </session-factory>
 </hibernate-configuration>

@@ -30,8 +30,8 @@ public class ModelsDAOTests {
         for (Models model : listemodel ){
             System.out.println(model.getModelModel());
             System.out.println(model.getModelId());
-            System.out.println(model.getGridSize().getGridSizeName());
-            System.out.println(model.getSeasons().getSeasonName());
+            System.out.println(model.getModelGridSize().getGridSizeName());
+            System.out.println(model.getModelSeasonId().getSeasonName());
           
         }
         sessionH.closeSession(session);
@@ -40,17 +40,17 @@ public class ModelsDAOTests {
         dao = new ModelsDAO(session);
         // INSERT 
         GridSize gridSize = new GridSize();
-        gridSize.setGridSizeId(1);
+        gridSize.setGridSizeId(10);
         Seasons season = new Seasons();
         season.setSeasonId(1);
         
-        Models model = new Models(gridSize, season, "53999999","test 4");
+        Models model = new Models("28989999","test 4",season,gridSize);
         
 // 
 
         if(dao.inserer(model)){
 //  
-        System.out.println("insert OK");
+        System.out.println("insert OK " + model.getModelId().toString());
         }else{
         System.out.println("insert KO");
         }

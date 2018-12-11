@@ -17,8 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -26,7 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Michel
  */
 @Entity
-@Table(name = "weborder_lines")
+@Table(name = "weborder_lines", catalog = "flyinpizzas_mdabase", schema = "", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"weborder_lines_code", "weborder_lines_article_id"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "WeborderLines.findAll", query = "SELECT w FROM WeborderLines w")
@@ -41,25 +42,25 @@ public class WeborderLines implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "weborder_lines_id")
+    @Column(name = "weborder_lines_id", nullable = false)
     private Integer weborderLinesId;
     @Basic(optional = false)
-    @Column(name = "weborder_qty")
+    @Column(name = "weborder_qty", nullable = false)
     private int weborderQty;
     @Basic(optional = false)
-    @Column(name = "weborder_ht")
+    @Column(name = "weborder_ht", nullable = false)
     private int weborderHt;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @Column(name = "weborder_lines_ttc")
+    @Column(name = "weborder_lines_ttc", nullable = false, precision = 9, scale = 2)
     private BigDecimal weborderLinesTtc;
     @Basic(optional = false)
-    @Column(name = "weborder_lines_tax_code")
+    @Column(name = "weborder_lines_tax_code", nullable = false, precision = 4, scale = 2)
     private BigDecimal weborderLinesTaxCode;
-    @JoinColumn(name = "weborder_lines_num", referencedColumnName = "weborder_num")
-    @OneToOne(optional = false)
-    private Weborders weborderLinesNum;
-    @JoinColumn(name = "weborder_lines_article_id", referencedColumnName = "article_id")
+    @JoinColumn(name = "weborder_lines_code", referencedColumnName = "weborder_code", nullable = false)
+    @ManyToOne(optional = false)
+    private Weborders weborderLinesCode;
+    @JoinColumn(name = "weborder_lines_article_id", referencedColumnName = "article_id", nullable = false)
     @ManyToOne(optional = false)
     private Articles weborderLinesArticleId;
 
@@ -118,12 +119,12 @@ public class WeborderLines implements Serializable {
         this.weborderLinesTaxCode = weborderLinesTaxCode;
     }
 
-    public Weborders getWeborderLinesNum() {
-        return weborderLinesNum;
+    public Weborders getWeborderLinesCode() {
+        return weborderLinesCode;
     }
 
-    public void setWeborderLinesNum(Weborders weborderLinesNum) {
-        this.weborderLinesNum = weborderLinesNum;
+    public void setWeborderLinesCode(Weborders weborderLinesCode) {
+        this.weborderLinesCode = weborderLinesCode;
     }
 
     public Articles getWeborderLinesArticleId() {

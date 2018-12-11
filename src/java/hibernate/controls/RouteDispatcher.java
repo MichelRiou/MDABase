@@ -57,14 +57,7 @@ public class RouteDispatcher extends HttpServlet {
                 String lURL = "";
                 ////////////
                 switch (lsAction) {
-
                     case "manageGridSize":
-                        /* List<GridSize> listeGridSizes = null;
-                    GridSizeDAO gridsizeDAO2 = null;
-                    gridsizeDAO2 = new GridSizeDAO(session);
-                    listeGridSizes = gridsizeDAO2.getGridSizes();*/
-                        //request.setAttribute("listeGridSizes", listeGridSizes);
-                        // request.getRequestDispatcher("jsp/listGridSize.jsp").forward(request, response);
                         request.setAttribute("titre", "Ajout");
                         request.setAttribute("fragment", "manageGridSize.jsp");
                         lsURL = "jsp/Main.jsp";
@@ -77,13 +70,11 @@ public class RouteDispatcher extends HttpServlet {
                         request.setAttribute("listeGridSizes", listeGridSizes);
                         lsURL = "jsp/listGridSize.jsp";
                         break;
-                    // request.getRequestDispatcher("jsp/listGridSize.jsp").forward(request, response);
                     default:
                         request.setAttribute("titre", "Main");
                         lsURL = "jsp/Main.jsp";
                         break;
                 }
-                //lsURL = lURL;
             } catch (Exception e) {
                 request.setAttribute("message", e.getMessage());
             } /// catch
