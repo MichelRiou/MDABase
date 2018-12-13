@@ -57,17 +57,25 @@ public class Models implements Serializable {
     @JoinColumn(name = "model_grid_size", referencedColumnName = "grid_size_id", nullable = false)
     @ManyToOne(optional = false)
     private GridSize modelGridSize;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articleModelId")
-    private Collection<Articles> articlesCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "colorsModelId")
+    private Collection<Colors> colorsCollection;
 
     public Models() {
     }
 
-    public Models(Integer modelId, String modelModel) {
+    public Models(Integer modelId) {
+        this.modelId = modelId;
+    }
+ 
+
+    public Models(Integer modelId, String modelModel, String modelDesignation, Seasons modelSeasonId, GridSize modelGridSize) {
         this.modelId = modelId;
         this.modelModel = modelModel;
+        this.modelDesignation = modelDesignation;
+        this.modelSeasonId = modelSeasonId;
+        this.modelGridSize = modelGridSize;
     }
-
+    
     public Models(String modelModel, String modelDesignation, Seasons modelSeasonId, GridSize modelGridSize) {
         this.modelModel = modelModel;
         this.modelDesignation = modelDesignation;
@@ -116,12 +124,12 @@ public class Models implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Articles> getArticlesCollection() {
-        return articlesCollection;
+    public Collection<Colors> getColorsCollection() {
+        return colorsCollection;
     }
 
-    public void setArticlesCollection(Collection<Articles> articlesCollection) {
-        this.articlesCollection = articlesCollection;
+    public void setColorsCollection(Collection<Colors> colorsCollection) {
+        this.colorsCollection = colorsCollection;
     }
 
     @Override

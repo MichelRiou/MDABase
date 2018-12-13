@@ -100,7 +100,7 @@ public class WebordersDAO {
                 tx.rollback();
             }
             String msgSQL = e.getMessage() + e.getCause();
-            result = (msgSQL.contains("Duplicate entry") ? "Commande déjà existant" : "Erreur d'insertion");
+            result = (msgSQL.contains("Duplicate entry") ? "Commande déjà existante" : "Erreur d'insertion");
             //e.printStackTrace();
         } finally {
             sessionH.close();

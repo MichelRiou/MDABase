@@ -6,9 +6,7 @@
 package hibernate.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,25 +16,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Michel
  */
 @Entity
-@Table(name = "articles", catalog = "flyinpizzas_mdabase", schema = "", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"article_model_id", "article_color_id", "article_size"})})
+@Table(name = "articles", catalog = "flyinpizzas_mdabase", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Articles.findAll", query = "SELECT a FROM Articles a")
     , @NamedQuery(name = "Articles.findByArticleId", query = "SELECT a FROM Articles a WHERE a.articleId = :articleId")
     , @NamedQuery(name = "Articles.findByArticleSize", query = "SELECT a FROM Articles a WHERE a.articleSize = :articleSize")
-    , @NamedQuery(name = "Articles.findByArticleColorDesignation", query = "SELECT a FROM Articles a WHERE a.articleColorDesignation = :articleColorDesignation")
     , @NamedQuery(name = "Articles.findByArticleGencod", query = "SELECT a FROM Articles a WHERE a.articleGencod = :articleGencod")
     , @NamedQuery(name = "Articles.findByArticleKey", query = "SELECT a FROM Articles a WHERE a.articleKey = :articleKey")})
 public class Articles implements Serializable {
@@ -51,22 +44,14 @@ public class Articles implements Serializable {
     @Column(name = "article_size", nullable = false, length = 6)
     private String articleSize;
     @Basic(optional = false)
-    @Column(name = "article_color_designation", nullable = false, length = 50)
-    private String articleColorDesignation;
-    @Basic(optional = false)
     @Column(name = "article_gencod", nullable = false, length = 13)
     private String articleGencod;
     @Basic(optional = false)
     @Column(name = "article_key", nullable = false, length = 20)
     private String articleKey;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "weborderLinesArticleId")
-    private Collection<WeborderLines> weborderLinesCollection;
-    @JoinColumn(name = "article_color_id", referencedColumnName = "code_colors_id", nullable = false)
+    @JoinColumn(name = "article_color_id", referencedColumnName = "colors_id", nullable = false)
     @ManyToOne(optional = false)
-    private CodeColors articleColorId;
-    @JoinColumn(name = "article_model_id", referencedColumnName = "model_id", nullable = false)
-    @ManyToOne(optional = false)
-    private Models articleModelId;
+    private Colors articleColorId;
 
     public Articles() {
     }
@@ -75,10 +60,9 @@ public class Articles implements Serializable {
         this.articleId = articleId;
     }
 
-    public Articles(Integer articleId, String articleSize, String articleColorDesignation, String articleGencod, String articleKey) {
+    public Articles(Integer articleId, String articleSize, String articleGencod, String articleKey) {
         this.articleId = articleId;
         this.articleSize = articleSize;
-        this.articleColorDesignation = articleColorDesignation;
         this.articleGencod = articleGencod;
         this.articleKey = articleKey;
     }
@@ -99,14 +83,6 @@ public class Articles implements Serializable {
         this.articleSize = articleSize;
     }
 
-    public String getArticleColorDesignation() {
-        return articleColorDesignation;
-    }
-
-    public void setArticleColorDesignation(String articleColorDesignation) {
-        this.articleColorDesignation = articleColorDesignation;
-    }
-
     public String getArticleGencod() {
         return articleGencod;
     }
@@ -123,29 +99,12 @@ public class Articles implements Serializable {
         this.articleKey = articleKey;
     }
 
-    @XmlTransient
-    public Collection<WeborderLines> getWeborderLinesCollection() {
-        return weborderLinesCollection;
-    }
-
-    public void setWeborderLinesCollection(Collection<WeborderLines> weborderLinesCollection) {
-        this.weborderLinesCollection = weborderLinesCollection;
-    }
-
-    public CodeColors getArticleColorId() {
+    public Colors getArticleColorId() {
         return articleColorId;
     }
 
-    public void setArticleColorId(CodeColors articleColorId) {
+    public void setArticleColorId(Colors articleColorId) {
         this.articleColorId = articleColorId;
-    }
-
-    public Models getArticleModelId() {
-        return articleModelId;
-    }
-
-    public void setArticleModelId(Models articleModelId) {
-        this.articleModelId = articleModelId;
     }
 
     @Override

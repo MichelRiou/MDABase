@@ -47,8 +47,8 @@ public class CodeColors implements Serializable {
     @Basic(optional = false)
     @Column(name = "code_colors_designation", nullable = false, length = 50)
     private String codeColorsDesignation;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articleColorId")
-    private Collection<Articles> articlesCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "colorsCodeId")
+    private Collection<Colors> colorsCollection;
 
     public CodeColors() {
     }
@@ -88,12 +88,12 @@ public class CodeColors implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Articles> getArticlesCollection() {
-        return articlesCollection;
+    public Collection<Colors> getColorsCollection() {
+        return colorsCollection;
     }
 
-    public void setArticlesCollection(Collection<Articles> articlesCollection) {
-        this.articlesCollection = articlesCollection;
+    public void setColorsCollection(Collection<Colors> colorsCollection) {
+        this.colorsCollection = colorsCollection;
     }
 
     @Override

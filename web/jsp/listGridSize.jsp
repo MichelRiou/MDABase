@@ -1,5 +1,5 @@
 <%-- 
-Document : PaysInsertFragment.jsp 
+Document : Gestion des grilles de tailles - Détail
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -23,7 +23,7 @@ Document : PaysInsertFragment.jsp
                 <td>${objet.gs01}</td><td>${objet.gs02}</td><td>${objet.gs03}</td><td>${objet.gs04}</td><td>${objet.gs05}</td><td>${objet.gs06}</td><td>${objet.gs07}</td><td>${objet.gs08}</td><td>${objet.gs09}</td><td>${objet.gs10}</td><td>${objet.gs11}</td>
            <td class = "row">
                              <!--   <a href="#" class="view"><i class="material-icons" data-toggle="tooltip" title="Liste">&#xE242;</i></a> -->
-                                <a href="#editModal"  value="" builder_ref="<?= $product->getProduct_builder_ref() ?>" ref="<?= $product->getProduct_ref() ?>" model="<?= $product->getProduct_model() ?>" builder="<?= $product->getProduct_builder() ?>" ean="<?= $product->getProduct_ean() ?>" designation="<?= $product->getProduct_designation() ?> " cat="<?= $product->getProduct_category() ?> " class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#editModal"  gridsizeid="${objet.gridSizeId}" gridsizename="${objet.gridSizeName}"  gs01="${objet.gs01}" gs02="${objet.gs02}" gs03="${objet.gs03}" gs04="${objet.gs04}" gs05="${objet.gs05}" gs06="${objet.gs06}" gs07="${objet.gs07}" gs08="${objet.gs08}" gs09="${objet.gs09}" gs10="${objet.gs10}" gs11="${objet.gs11}" gs12="${objet.gs12}" gs13="${objet.gs13}" gs14="${objet.gs14}" gs15="${objet.gs15}" gs16="${objet.gs16}" gs17="${objet.gs17}" gs18="${objet.gs18}" gs19="${objet.gs19}" gs20="${objet.gs20}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                 <a href="#deleteModal" serial_objet = ${objet} gridsizeid="${objet.gridSizeId}"  class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                             </td>
             </tr>

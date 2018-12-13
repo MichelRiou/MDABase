@@ -6,17 +6,23 @@
 package hibernate.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,13 +30,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "colors", catalog = "flyinpizzas_mdabase", schema = "", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"colors_model_id", "colors_code"})})
+    @UniqueConstraint(columnNames = {"colors_model_id", "colors_code_id"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Colors.findAll", query = "SELECT c FROM Colors c")
     , @NamedQuery(name = "Colors.findByColorsId", query = "SELECT c FROM Colors c WHERE c.colorsId = :colorsId")
-    , @NamedQuery(name = "Colors.findByColorsModelId", query = "SELECT c FROM Colors c WHERE c.colorsModelId = :colorsModelId")
-    , @NamedQuery(name = "Colors.findByColorsCode", query = "SELECT c FROM Colors c WHERE c.colorsCode = :colorsCode")
     , @NamedQuery(name = "Colors.findByColorsLibelle", query = "SELECT c FROM Colors c WHERE c.colorsLibelle = :colorsLibelle")})
 public class Colors implements Serializable {
 
@@ -41,14 +45,16 @@ public class Colors implements Serializable {
     @Column(name = "colors_id", nullable = false)
     private Integer colorsId;
     @Basic(optional = false)
-    @Column(name = "colors_model_id", nullable = false)
-    private int colorsModelId;
-    @Basic(optional = false)
-    @Column(name = "colors_code", nullable = false, length = 5)
-    private String colorsCode;
-    @Basic(optional = false)
     @Column(name = "colors_libelle", nullable = false, length = 50)
     private String colorsLibelle;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articleColorId")
+    private Collection<Articles> articlesCollection;
+    @JoinColumn(name = "colors_code_id", referencedColumnName = "code_colors_id", nullable = false)
+    @ManyToOne(optional = false)
+    private CodeColors colorsCodeId;
+    @JoinColumn(name = "colors_model_id", referencedColumnName = "model_id", nullable = false)
+    @ManyToOne(optional = false)
+    private Models colorsModelId;
 
     public Colors() {
     }
@@ -57,10 +63,8 @@ public class Colors implements Serializable {
         this.colorsId = colorsId;
     }
 
-    public Colors(Integer colorsId, int colorsModelId, String colorsCode, String colorsLibelle) {
+    public Colors(Integer colorsId, String colorsLibelle) {
         this.colorsId = colorsId;
-        this.colorsModelId = colorsModelId;
-        this.colorsCode = colorsCode;
         this.colorsLibelle = colorsLibelle;
     }
 
@@ -72,28 +76,37 @@ public class Colors implements Serializable {
         this.colorsId = colorsId;
     }
 
-    public int getColorsModelId() {
-        return colorsModelId;
-    }
-
-    public void setColorsModelId(int colorsModelId) {
-        this.colorsModelId = colorsModelId;
-    }
-
-    public String getColorsCode() {
-        return colorsCode;
-    }
-
-    public void setColorsCode(String colorsCode) {
-        this.colorsCode = colorsCode;
-    }
-
     public String getColorsLibelle() {
         return colorsLibelle;
     }
 
     public void setColorsLibelle(String colorsLibelle) {
         this.colorsLibelle = colorsLibelle;
+    }
+
+    @XmlTransient
+    public Collection<Articles> getArticlesCollection() {
+        return articlesCollection;
+    }
+
+    public void setArticlesCollection(Collection<Articles> articlesCollection) {
+        this.articlesCollection = articlesCollection;
+    }
+
+    public CodeColors getColorsCodeId() {
+        return colorsCodeId;
+    }
+
+    public void setColorsCodeId(CodeColors colorsCodeId) {
+        this.colorsCodeId = colorsCodeId;
+    }
+
+    public Models getColorsModelId() {
+        return colorsModelId;
+    }
+
+    public void setColorsModelId(Models colorsModelId) {
+        this.colorsModelId = colorsModelId;
     }
 
     @Override

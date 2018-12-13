@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 // ----------------
 
 public class ModelsDAO {
@@ -27,74 +28,105 @@ public class ModelsDAO {
 
     public List<Models> getModels() {
         List<Models> modelListe = null;
+        Transaction tx = null;
         try {
+            tx = sessionH.beginTransaction();
             Query q = this.sessionH.createQuery("from Models ORDER BY modelId");
             modelListe = q.list();
+            tx.commit();
         } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            sessionH.close();
         }
         return modelListe;
     }
 /// getPays (Tous)    
 // --- Renvoie un pays    
 
-    public Models getModel(String asID) {
+    public Models getModel(Integer asID) {
         Models model = null;
+        Transaction tx = null;
         try {
+            tx = sessionH.beginTransaction();
             Query q = this.sessionH.createQuery("from Models WHERE modelId=?");
-            q.setString(0, asID);
+            q.setInteger(0, asID);
             model = (Models) q.uniqueResult();
+            tx.commit();
         } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            sessionH.close();
         }
         return model;
     }
 /// getPays (Un)    
 // ----------------------------    
 
-    public Boolean inserer(Models model) {
-        Boolean OK = false;
-
-        org.hibernate.Transaction tx = sessionH.beginTransaction();
+    public String ins(Models model) {
+        String result = "Done";
+        Transaction tx = null;
         try {
+            tx = sessionH.beginTransaction();
             sessionH.save(model);
             tx.commit();
-
-            OK = true;
         } catch (HibernateException e) {
-            tx.rollback();
-
+            if (tx != null) {
+                tx.rollback();
+            }
+            String msgSQL = e.getMessage() + e.getCause();
+            result = (msgSQL.contains("Duplicate entry") ? "Modèle déjà existant" : "Erreur d'insertion");
+            e.printStackTrace();
+        } finally {
+            sessionH.close();
         }
-        return OK;
+        return result;
     }
 /// ajouter    
 // ------------------------------    
 
-    public Boolean supprimer(Models model) {
-        Boolean OK = false;
-        org.hibernate.Transaction tx = sessionH.beginTransaction();
+    public Boolean del(Models model) {
+        Boolean OK = true;
+        Transaction tx = null;
         try {
+            tx = sessionH.beginTransaction();
             sessionH.delete(model);
             tx.commit();
-            OK = true;
         } catch (HibernateException e) {
-            tx.rollback();
-
+            if (tx != null) {
+                tx.rollback();
+            }
+            OK = false;
+            e.printStackTrace();
+        } finally {
+            sessionH.close();
         }
         return OK;
     }
 /// supprimer    
 // ------------------    
 
-    public Boolean modifier(Models model) {
-        Boolean OK = false;
-        org.hibernate.Transaction tx = sessionH.beginTransaction();
+    public Boolean upd(Models model) {
+        Boolean OK = true;
+        Transaction tx = null;
         try {
+            tx = sessionH.beginTransaction();
             sessionH.update(model);
             tx.commit();
-            OK = true;
         } catch (HibernateException e) {
-            tx.rollback();
+            if (tx != null) {
+                tx.rollback();
+            }
+            OK = false;
+            e.printStackTrace();
+        } finally {
+            sessionH.close();
         }
         return OK;
     }
@@ -110,4 +142,4 @@ public class ModelsDAO {
         }
         return listeColonnes;
     } /// getAttributsBean 
-} 
+}
