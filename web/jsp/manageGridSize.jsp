@@ -1,5 +1,5 @@
 <%-- 
-Document : Gestion dezs grilles de tailles
+Document : Gestion des grilles de tailles
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -242,7 +242,6 @@ Document : Gestion dezs grilles de tailles
                 </div>
             </div>
         </div>
-        <div><button id='btn'></button></div>
         <!-- RAFRAICHISSEMENT DU DETAIL VIA AJAX -->
         <!-- <div id="loader" class="offset-md-5 col-md-1 mx-auto"><img src="public/images/ajax-loader.gif"/></div> -->
         <div id="tableList" class="container scrollDiv2"></div>
@@ -490,7 +489,7 @@ Document : Gestion dezs grilles de tailles
                 <div id="editMessage" class="text-warning text-justify"></div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Abandon" id="editCancel">
-                    <input type="button" class="btn btn-info" value="Ajouter" id="editOk" >
+                    <input type="button" class="btn btn-info" value="Edition" id="editOk" >
                 </div>
             </form>
         </div>

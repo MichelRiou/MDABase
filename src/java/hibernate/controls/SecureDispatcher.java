@@ -44,7 +44,7 @@ public class SecureDispatcher extends HttpServlet {
                     HttpSession userSession = request.getSession();
                     userSession.setAttribute("user", user);
                     //   response.setContentType("text/html;charset=UTF-8");
-                    request.setAttribute("fragment", "bonjour.jsp");
+                    //request.setAttribute("fragment", "bonjour.jsp");
                     //     request.getRequestDispatcher("jsp/Main.jsp").forward(request, response);
 
                 } else {

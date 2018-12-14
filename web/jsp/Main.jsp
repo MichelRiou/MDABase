@@ -112,23 +112,10 @@
                     <a class="nav-link " href="Secure?action=disconnectUser">Utilisateur  : 
                         <c:choose> 
                             <c:when test="${!empty sessionScope.user}">
-                                <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-                                ${sessionScope.user.userName}
-                                ${sessionScope.user.userPassword}
-                               
-                                <%
-                                    Users u = (Users) request.getAttribute("user");
-                                    Users u2 = (Users) session.getAttribute("user");
-                                    if (u2!=null){
-                                        out.print("useu:" + u2);
-                                       // out.print(u2.getRoles().getRoleName());
-                                    Roles r = (Roles) u2.getRoles();
-                                    //out.print("role:" + r);
-                                        //out.print((String) r.getRoleName());
-                                    }else{
-                                    out.print("null");
-                                    }
-                                %>
+                                <%-- Si l'utilisateur existe en session --%>
+                                ${sessionScope.user.userName} &nbsp;&nbsp;
+
+                               ${sessionScope.user.roles.roleName}
                             </c:when>
                             <c:otherwise>Non connecté</c:otherwise></c:choose></a>
                         </li>

@@ -84,8 +84,8 @@ public class GridSizeDAO {
             if (tx != null) {
                 tx.rollback();
             }
-            String msgSQL = e.getMessage()+ e.getCause();
-            result=(msgSQL.contains("Duplicate entry")?"Grille de taille déjà existante":"Erreur d'insertion");
+            String msgSQL = e.getMessage() + e.getCause();
+            result = (msgSQL.contains("Duplicate entry") ? "Grille de taille déjà existante" : "Erreur d'insertion");
             e.printStackTrace();
         } finally {
             sessionH.close();
@@ -121,17 +121,24 @@ public class GridSizeDAO {
 /// supprimer    
 // ------------------    
 
-    public Boolean upd(GridSize gridSize) {
-        Boolean OK = false;
-        org.hibernate.Transaction tx = sessionH.beginTransaction();
+    public String upd(GridSize gridSize) {
+        String result = "Done";
+        Transaction tx = null;
         try {
+            tx = sessionH.beginTransaction();
             sessionH.update(gridSize);
             tx.commit();
-            OK = true;
         } catch (HibernateException e) {
-            tx.rollback();
+
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            result = "Erreur de mise à jour";
+        } finally {
+            sessionH.close();
         }
-        return OK;
+        return result;
     }
 /// modifier    
 // ------------------------    
