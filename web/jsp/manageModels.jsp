@@ -8,39 +8,40 @@ Document : Gestion des grilles de tailles
         $.ajax({
             type: 'POST',
             url: '/MDABase/Route',
-            data: {"action": "listGridSize"},
+            data: {"action": "listModels"},
             success: function (tableHtml) {
                 $("#tableList").html(tableHtml);
                 $('[data-toggle="tooltip"]').tooltip();
-                $('a[class="delete"]').click(function () {
-                    // TODO : Gestion de l'objet entre Java-JSP-JSTL et AJAX-Javascript 
-                    idDelete = this.getAttribute('gridSizeId');
-                });
-                $('a[class="edit"]').click(function () {
-                    //MISE A JOUR DES CHAMPS POUR L'UPDATE 
-                    $('#editGridName').val(this.getAttribute('gridsizename'));
-                    $('#editGs01').val(this.getAttribute('gs01'));
-                    $('#editGs02').val(this.getAttribute('gs02'));
-                    $('#editGs03').val(this.getAttribute('gs03'));
-                    $('#editGs04').val(this.getAttribute('gs04'));
-                    $('#editGs05').val(this.getAttribute('gs05'));
-                    $('#editGs06').val(this.getAttribute('gs06'));
-                    $('#editGs07').val(this.getAttribute('gs07'));
-                    $('#editGs08').val(this.getAttribute('gs08'));
-                    $('#editGs09').val(this.getAttribute('gs09'));
-                    $('#editGs10').val(this.getAttribute('gs10'));
-                    $('#editGs11').val(this.getAttribute('gs11'));
-                    $('#editGs12').val(this.getAttribute('gs12'));
-                    $('#editGs13').val(this.getAttribute('gs13'));
-                    $('#editGs14').val(this.getAttribute('gs14'));
-                    $('#editGs15').val(this.getAttribute('gs15'));
-                    $('#editGs16').val(this.getAttribute('gs16'));
-                    $('#editGs17').val(this.getAttribute('gs17'));
-                    $('#editGs18').val(this.getAttribute('gs18'));
-                    $('#editGs19').val(this.getAttribute('gs19'));
-                    $('#editGs20').val(this.getAttribute('gs20'));
-                    idEdit = this.getAttribute('gridSizeId');
-                });
+                /*
+                 $('a[class="delete"]').click(function () {
+                 // TODO : Gestion de l'objet entre Java-JSP-JSTL et AJAX-Javascript 
+                 idDelete = this.getAttribute('gridSizeId');
+                 });
+                 $('a[class="edit"]').click(function () {
+                 //MISE A JOUR DES CHAMPS POUR L'UPDATE 
+                 $('#editGridName').val(this.getAttribute('gridsizename'));
+                 $('#editGs01').val(this.getAttribute('gs01'));
+                 $('#editGs02').val(this.getAttribute('gs02'));
+                 $('#editGs03').val(this.getAttribute('gs03'));
+                 $('#editGs04').val(this.getAttribute('gs04'));
+                 $('#editGs05').val(this.getAttribute('gs05'));
+                 $('#editGs06').val(this.getAttribute('gs06'));
+                 $('#editGs07').val(this.getAttribute('gs07'));
+                 $('#editGs08').val(this.getAttribute('gs08'));
+                 $('#editGs09').val(this.getAttribute('gs09'));
+                 $('#editGs10').val(this.getAttribute('gs10'));
+                 $('#editGs11').val(this.getAttribute('gs11'));
+                 $('#editGs12').val(this.getAttribute('gs12'));
+                 $('#editGs13').val(this.getAttribute('gs13'));
+                 $('#editGs14').val(this.getAttribute('gs14'));
+                 $('#editGs15').val(this.getAttribute('gs15'));
+                 $('#editGs16').val(this.getAttribute('gs16'));
+                 $('#editGs17').val(this.getAttribute('gs17'));
+                 $('#editGs18').val(this.getAttribute('gs18'));
+                 $('#editGs19').val(this.getAttribute('gs19'));
+                 $('#editGs20').val(this.getAttribute('gs20'));
+                 idEdit = this.getAttribute('gridSizeId');
+                 });*/
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert(textStatus);
@@ -55,32 +56,21 @@ Document : Gestion des grilles de tailles
         return true;
     }
     function ctrlAdd() {
-        return true;
+        var msg = "";
+        if ($("#addModel").val() == '')
+            msg += 'La référence modèle est obligatoire.<br>';
+        if ($("#addDesignation").val() == '')
+            msg += 'La désignation est obligatoire.';
+        // Monitoring des erreurs
+        $("#addMessage").html(msg);
+        $result = (msg != "" ? false : true);
+        return $result;
     }
     function clearAdd() {
-        $('#addGridName').val("");
-        $('#addGs01').val("");
-        $('#addGs01').val("");
-        $('#addGs02').val("");
-        $('#addGs03').val("");
-        $('#addGs04').val("");
-        $('#addGs05').val("");
-        $('#addGs06').val("");
-        $('#addGs07').val("");
-        $('#addGs08').val("");
-        $('#addGs09').val("");
-        $('#addGs10').val("");
-        $('#addGs11').val("");
-        $('#addGs12').val("");
-        $('#addGs13').val("");
-        $('#addGs14').val("");
-        $('#addGs15').val("");
-        $('#addGs16').val("");
-        $('#addGs17').val("");
-        $('#addGs18').val("");
-        $('#addGs19').val("");
-        $('#addGs20').val("");
-
+        $('#addModel').val("");
+        $('#addDesignation').val("");
+        $('#addSeason').val("");
+        $('#addGridSize').val("");
     }
     $(document).ready(function () {
         refresh();
@@ -93,38 +83,23 @@ Document : Gestion des grilles de tailles
         // Validation de la modal AJOUTER UNE REPONSE
         $("#addButton").click(function () {
             clearAdd();
-             $("#addModal").modal('show');
+            $("#addModal").modal('show');
         });
         // VALIDATION
         $("#addOk").on('click', (function () {
+            console.log("add");
             if (ctrlAdd()) {
+                console.log("add");
                 $.ajax({
                     type: 'POST',
                     url: '/MDABase/Update',
                     data:
                             {
-                                "action": "addGridSize",
-                                "addGridName": $("#addGridName").val(),
-                                "addGs01": $("#addGs01").val(),
-                                "addGs02": $("#addGs02").val(),
-                                "addGs03": $("#addGs03").val(),
-                                "addGs04": $("#addGs04").val(),
-                                "addGs05": $("#addGs05").val(),
-                                "addGs06": $("#addGs06").val(),
-                                "addGs07": $("#addGs07").val(),
-                                "addGs08": $("#addGs08").val(),
-                                "addGs09": $("#addGs09").val(),
-                                "addGs10": $("#addGs10").val(),
-                                "addGs11": $("#addGs11").val(),
-                                "addGs12": $("#addGs12").val(),
-                                "addGs13": $("#addGs13").val(),
-                                "addGs14": $("#addGs14").val(),
-                                "addGs15": $("#addGs15").val(),
-                                "addGs16": $("#addGs16").val(),
-                                "addGs17": $("#addGs17").val(),
-                                "addGs18": $("#addGs18").val(),
-                                "addGs19": $("#addGs19").val(),
-                                "addGs20": $("#addGs20").val()
+                                "action": "addModels",
+                                "addModel": $("#addModel").val(),
+                                "addDesignation": $("#addDesignation").val(),
+                                "addSeason": $("#addSeason").val(),
+                                "addGridSize": $("#addGridSize").val()
                             },
                     success: function (data) {
                         console.log(data);
@@ -229,11 +204,11 @@ Document : Gestion des grilles de tailles
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-4">
-                    <h5>LISTE DES PRODUITS</h5><input type="hidden" value="" id="idForm">
+                    <h5>LISTE DES MODELES</h5><input type="hidden" value="" id="idForm">
                 </div>
                 <div class="col-sm-3">		
                     <button id="back" class="btn btn-default" data-toggle="modal"><i class="material-icons">&#xE314;</i> <span class="black-write">Retour</span></button>
-                    <button id="addButton" class="btn btn-info" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter un produit</span></button>
+                    <button id="addButton" class="btn btn-info" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ajouter un modèle</span></button>
 
                 </div>
                 <div class="col-sm-5">
@@ -254,7 +229,7 @@ Document : Gestion des grilles de tailles
         <div class="modal-content">
             <form>
                 <div class="modal-header">						
-                    <h4 class="modal-title">Supprimer une grille de taille</h4>
+                    <h4 class="modal-title">Supprimer un modèle</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">					
@@ -274,105 +249,40 @@ Document : Gestion des grilles de tailles
 <div id="addModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
+            <!-- Le formulaire est à l'intérieur du "modal-content" -->
             <form >
                 <div class="modal-header">						
-                    <h4 class="modal-title">Ajout Série de Taille</h4>
+                    <h4 class="modal-title">Ajout Modèle</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Nom de la série</label>
-                        <input type="text" class="form-control"  id="addGridName">
+                        <label>Nom du modèle</label>
+                        <input type="text" class="form-control"  id="addModel">
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-2">
-                            <label>1</label>
-                            <input type="text" class="form-control"  id="addGs01">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>2</label>
-                            <input type="text" class="form-control"  id="addGs02">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>3</label>
-                            <input type="text" class="form-control"  id="addGs03">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>4</label>
-                            <input type="text" class="form-control"  id="addGs04">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>5</label>
-                            <input type="text" class="form-control"  id="addGs05">
-                        </div>
+
+                    <div class="form-group">
+                        <label>1</label>
+                        <input type="text" class="form-control"  id="addDesignation">
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-2">
-                            <label>6</label>
-                            <input type="text" class="form-control"  id="addGs06">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>7</label>
-                            <input type="text" class="form-control"  id="addGs07">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>8</label>
-                            <input type="text" class="form-control"  id="addGs08">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>9</label>
-                            <input type="text" class="form-control"  id="addGs09">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>10</label>
-                            <input type="text" class="form-control"  id="addGs10">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-2">
-                            <label>11</label>
-                            <input type="text" class="form-control"  id="addGs11">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>12</label>
-                            <input type="text" class="form-control"  id="addGs12">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>13</label>
-                            <input type="text" class="form-control"  id="addGs13">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>14</label>
-                            <input type="text" class="form-control"  id="addGs14">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>15</label>
-                            <input type="text" class="form-control"  id="addGs15">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-2">
-                            <label>16</label>
-                            <input type="text" class="form-control"  id="addGs16">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>17</label>
-                            <input type="text" class="form-control"  id="addGs17">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>18</label>
-                            <input type="text" class="form-control"  id="addGs18">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>19</label>
-                            <input type="text" class="form-control"  id="addGs19">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>20</label>
-                            <input type="text" class="form-control"  id="addGs20">
-                        </div>
-                    </div>
-                </div>
+                    <div class="form-group">
+                        <label>Saison</label>
+                        <select class="form-control" name="addSeason" id="addSeason">
+                            <c:forEach items="${listSeasons}" var="item">
+                                <option value=" ${item.seasonName}"></option>
+                            </c:forEach>
+                        </select>
+                    </div>  
+                    <div class="form-group">
+                        <label>Grille de taille</label>
+                        <select class="form-control" name="addGridSize" id="addGridSize">
+                            <c:forEach items="${listGridSize}" var="item2">
+                                <option value=" ${item2.gridSizeName}"></option>
+                            </c:forEach>
+                        </select>
+                    </div>                       
+                </div>        
+
                 <div id="addMessage" class="text-warning text-justify"></div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Abandon" id="addCancel">
@@ -382,6 +292,7 @@ Document : Gestion des grilles de tailles
         </div>
     </div>
 </div>
+
 <!-- Edit Modal HTML -->
 <div id="editModal" class="modal fade">
     <div class="modal-dialog">

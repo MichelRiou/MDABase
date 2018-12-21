@@ -84,7 +84,7 @@
                         <a class="dropdown-item" 
                            href="/MDABase/Route?action=manageGridSize">GRILLE DE TAILLE</a>
                         <a class="dropdown-item" 
-                           href="routes.php?action=manageProduct">GESTION DES PRODUITS</a>
+                           href="/MDABase/Route?action=manageModels">MODELES</a>
 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" 

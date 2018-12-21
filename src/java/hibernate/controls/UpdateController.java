@@ -122,6 +122,24 @@ public class UpdateController extends HttpServlet {
                   
                     System.out.println("result = " + resultedit);// Write response body.
                     response.getWriter().write(resultedit);
+            case "addModels":
+                    String addModel = request.getParameter("addModel");
+                    String addDesignation = request.getParameter("addDesignation");
+                    String addSeason = request.getParameter("addSeason");
+                    String addGridSize2 = request.getParameter("addGridSize");
+                    System.out.println(addModel);
+                    System.out.println(addDesignation);
+                    System.out.println(addSeason);
+                    System.out.println(addGridSize2);
+                    //GridSizeDAO addGridSizeDAO2 = new GridSizeDAO(session);
+                   // GridSize addGridSize = new GridSize(addGridName, addGs01, addGs02, addGs03, addGs04, addGs05, addGs06, addGs07, addGs08, addGs09, addGs10, addGs11, addGs12, addGs13, addGs14, addGs15, addGs16, addGs17, addGs18, addGs19, addGs20);
+                   // String result = addGridSizeDAO.ins(addGridSize);
+                    response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+                    response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+                    //response.getWriter().write("OK c'est cool" + obj.getGridSizeName()); 
+                    //String result= "OK";
+                    //System.out.println("result = " + result);// Write response body.
+                    response.getWriter().write("OK");
                 default:
             }
             /*   if (lsAction.equals("gridSize")) {

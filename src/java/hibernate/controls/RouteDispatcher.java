@@ -6,8 +6,10 @@
 package hibernate.controls;
 
 import hibernate.daos.GridSizeDAO;
+import hibernate.daos.ModelsDAO;
 import hibernate.daos.SessionH;
 import hibernate.entities.GridSize;
+import hibernate.entities.Models;
 import hibernate.entities.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -69,6 +71,18 @@ public class RouteDispatcher extends HttpServlet {
                         listeGridSizes = gridsizeDAO2.getGridSizes();
                         request.setAttribute("listeGridSizes", listeGridSizes);
                         lsURL = "jsp/listGridSize.jsp";
+                        break;
+                    case "manageModels":
+                        request.setAttribute("titre", "Modèles");
+                        request.setAttribute("fragment", "manageModels.jsp");
+                        lsURL = "jsp/Main.jsp";
+                        break;
+                    case "listModels":
+                        List<Models> listModels = null;
+                        ModelsDAO modelsDAO = new ModelsDAO(session);
+                        listModels = modelsDAO.getModels();
+                        request.setAttribute("listModels", listModels);
+                        lsURL = "jsp/listModels.jsp";
                         break;
                     default:
                         request.setAttribute("titre", "Main");
