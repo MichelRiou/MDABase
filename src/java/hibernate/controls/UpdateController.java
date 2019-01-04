@@ -61,6 +61,7 @@ public class UpdateController extends HttpServlet {
                     //response.getWriter().write("OK c'est cool" + obj.getGridSizeName()); 
                     System.out.println("test2 " + Integer.toString(idDelete));// Write response body.
                     response.getWriter().write("OK c'est cool");
+                    break;
                 case "addGridSize":
                     String addGridName = request.getParameter("addGridName");
                     String addGs01 = request.getParameter("addGs01");
@@ -91,6 +92,7 @@ public class UpdateController extends HttpServlet {
                     //response.getWriter().write("OK c'est cool" + obj.getGridSizeName()); 
                     System.out.println("result = " + result);// Write response body.
                     response.getWriter().write(result);
+                    break;
                 case "editGridSize":
                     Integer idEdit = Integer.parseInt(request.getParameter("id"));
                     String editGridName = request.getParameter("editGridName");
@@ -115,14 +117,13 @@ public class UpdateController extends HttpServlet {
                     String editGs19 = request.getParameter("editGs19");
                     String editGs20 = request.getParameter("editGs20");
                     GridSizeDAO editGridSizeDAO = new GridSizeDAO(session);
-                   GridSize editGridSize = new GridSize(idEdit,editGridName, editGs01, editGs02, editGs03, editGs04, editGs05, editGs06, editGs07, editGs08, editGs09, editGs10, editGs11, editGs12, editGs13, editGs14, editGs15, editGs16, editGs17, editGs18, editGs19, editGs20);
+                    GridSize editGridSize = new GridSize(idEdit, editGridName, editGs01, editGs02, editGs03, editGs04, editGs05, editGs06, editGs07, editGs08, editGs09, editGs10, editGs11, editGs12, editGs13, editGs14, editGs15, editGs16, editGs17, editGs18, editGs19, editGs20);
                     String resultedit = editGridSizeDAO.upd(editGridSize);
                     response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
                     response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
-                  
-                    System.out.println("result = " + resultedit);// Write response body.
-                    response.getWriter().write(resultedit);
-            case "addModels":
+                    response.getWriter().write(resultedit); // Data récupérée par AJAX
+                    break;
+                case "addModels":
                     String addModel = request.getParameter("addModel");
                     String addDesignation = request.getParameter("addDesignation");
                     String addSeason = request.getParameter("addSeason");
@@ -132,14 +133,15 @@ public class UpdateController extends HttpServlet {
                     System.out.println(addSeason);
                     System.out.println(addGridSize2);
                     //GridSizeDAO addGridSizeDAO2 = new GridSizeDAO(session);
-                   // GridSize addGridSize = new GridSize(addGridName, addGs01, addGs02, addGs03, addGs04, addGs05, addGs06, addGs07, addGs08, addGs09, addGs10, addGs11, addGs12, addGs13, addGs14, addGs15, addGs16, addGs17, addGs18, addGs19, addGs20);
-                   // String result = addGridSizeDAO.ins(addGridSize);
+                    // GridSize addGridSize = new GridSize(addGridName, addGs01, addGs02, addGs03, addGs04, addGs05, addGs06, addGs07, addGs08, addGs09, addGs10, addGs11, addGs12, addGs13, addGs14, addGs15, addGs16, addGs17, addGs18, addGs19, addGs20);
+                    // String result = addGridSizeDAO.ins(addGridSize);
                     response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
                     response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
                     //response.getWriter().write("OK c'est cool" + obj.getGridSizeName()); 
                     //String result= "OK";
                     //System.out.println("result = " + result);// Write response body.
                     response.getWriter().write("OK");
+                    break;
                 default:
             }
             /*   if (lsAction.equals("gridSize")) {
